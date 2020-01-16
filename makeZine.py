@@ -1,0 +1,495 @@
+import json
+from urllib.request import urlopen
+
+
+from fpdf import FPDF
+from PIL import Image
+from PyPDF2 import PdfFileMerger
+
+## Image processing
+
+def scaleToDefaultHeight(size, defaulSize):
+    
+    width = size[0]
+    height = size[1]
+    defaultHeight = defaulSize
+    
+    scale = height/defaultHeight
+    
+    newSize = (int(width/scale), int(height/scale))
+    return newSize
+
+def scaleToDefaultWidth(size, defaulSize):
+    
+    width = size[0]
+    height = size[1]
+    defaultWidth = defaulSize
+    
+    scale = width/defaultWidth
+    
+    newSize = (int(width/scale), int(height/scale))
+    return newSize
+
+def imageIsDownloaded(pathToFile):
+
+	try:
+		Image.open(pathToFile)
+	except:
+		return False
+	return True
+
+def downloadImage(url, name, path = 'images/test/', checkIfIsDownloaded = True):
+
+	isDownloaded = False
+	if checkIfIsDownloaded and imageIsDownloaded(path + name):
+		isDownloaded = True
+
+	# download img from url and save it
+	if not isDownloaded:
+		img = Image.open(urlopen(url))
+		img.save(path + name)
+		
+		del img
+
+## Extracting caracteristics
+
+def getCleanImage(jsonImg):
+
+	# returns url of clean image used
+	return jsonImg['image']
+
+# Google Cloud
+
+def getGoogleSafeSearchAnnotations(jsonImg):
+
+	# returns a dictionary with 5 safe annotations: adult, racy, violence, medical, spoof
+	return jsonImg['googlecloud']['safeSearchAnnotation']
+
+def getGoogleLabelAnnotations(jsonImg):
+	
+	labelsList = jsonImg['googlecloud']['labelAnnotations']
+	for i, result in enumerate(labelsList):
+		labelsList[i] = {'description': result['description'].lower(), 'score': result['score']}
+
+	# returns a list of dictionaries of results {'description': nome da label, 'score': 0.1}
+	return labelsList
+
+def getGoogleBestGuessLabel(jsonImg):
+	
+	# return a string
+	return jsonImg['googlecloud']['webDetection']['bestGuessLabels'][0]['label']
+
+def getGoogleTextAnnotation(jsonImg):
+	
+	try:
+		text = jsonImg['googlecloud']['textAnnotations'][0]['description'].strip()
+		text = ' '.join(text.split('\n'))
+	except:
+		text = 'No texts found'
+
+	return text
+
+def getVisuallySimilarImages(jsonImg, pk):
+	temp = jsonImg['googlecloud']['webDetection']['visuallySimilarImages']
+	
+	urls = []
+	i = 0
+	while len(urls) < 2 and i < len(temp):
+		url = temp[i]['url']
+		try:
+			downloadImage(url, str(pk) + '_' + str(i+1) + '.jpg')
+		except:
+			i += 1
+			continue
+		i += 1
+		urls.append(url)
+
+	del temp
+
+	# returns a list of 2 or less url of visually simillar images
+	return urls
+
+# Microssoft Azure
+
+def getGuessName(jsonImg):
+
+	try:
+		caption = jsonImg['microsoftazure']['main']['description']['captions'][0]
+	except:
+		caption = {'text': 'no description', 'confidence': 1}
+
+	# returns a dictionary of a produced by the AI, if it fails to find, returns {text: 'No title', confidence: 100}
+	return caption
+
+# Densecap
+
+def getDensecapImage(jsonImg):
+
+	# returns a url of densecap full analysed image
+	return jsonImg['dense_cap_full_image']
+
+
+# Amazon Rekognition
+
+def getAmazonLabels(jsonImg):
+
+	# returns a list of dictionaries with name and confidence for each label classified by the Amazon Rekog
+	return jsonImg['amazonRekog']['labels']['Labels']
+
+
+
+# ClarifAI
+
+def getNsfw(jsonImg):
+
+	# return a percentage value (0 to 100)
+	return jsonImg['clarifai']['nsfw']['concepts'][1]['value']*100
+
+## Zine processing
+
+def addImage(pdf, jsonImg, pk, path = 'images/test/', xShift = 10, yShift = 24):
+
+	url = getDensecapImage(jsonImg)
+	downloadImage(url, str(pk) + '.jpg', path)
+
+	# getting img size to see if width is bigger then height
+	imSize = Image.open(path + str(pk) + '.jpg').size
+
+	maxSize = 83
+
+	pdf.set_fill_color(245)
+	pdf.rect(xShift-0.1, yShift-0.1, maxSize+0.2, maxSize+0.2, 'DF')
+
+	# horizontal image
+	if imSize[0] > imSize[1]:
+		imSize = scaleToDefaultWidth(imSize, maxSize)
+		pdf.image(path + str(pk) + '.jpg', x = xShift, y = yShift + (maxSize - imSize[1])/2, w = maxSize)
+	
+	# vertical image
+	else:
+		imSize = scaleToDefaultHeight(imSize, maxSize)
+		pdf.image(path + str(pk) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y = yShift, h = maxSize)
+	
+	del imSize
+
+def addName(pdf, jsonImg, number):
+
+	nameDict = getGuessName(jsonImg)
+	name = nameDict['text']
+	confidence = int(nameDict['confidence']*100)
+
+	if number < 10:
+		number = '0'+str(number)
+	else:
+		number = str(number)
+
+	pdf.set_fill_color(240)
+	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', 'B', size = 10)
+	pdf.cell(0, 8, txt='              '+name, ln=1, align='L', border = 1, fill = True)
+	
+	pdf.set_fill_color(52, 152, 219)
+	pdf.set_font('NeutralStd', '', size = 10)
+
+	pdf.set_text_color(24, 188, 156)
+	pdf.text(11, 15.1, txt=' #'+number)
+	
+
+	# ajustando espaçamento
+	x, y = 131.5, 14.7
+	if name == 'no description':
+		addConfidenceBox(pdf, x, y, confidence = 0, printSlash = True, head = True)
+	else:
+		addConfidenceBox(pdf, x, y, confidence, head = True)
+
+def addConfidenceBox(pdf, x, y, confidence, printSlash = False, head = False):
+	
+	if head:
+		width = 8
+		textSize = 7
+		yAdjust = 0
+		xAdjust = 0
+	else:
+		width = 7
+		textSize = 6
+		yAdjust = -0.3
+		xAdjust = -0.2
+
+	pdf.set_font('NeutralStd', 'B', size = textSize)
+	pdf.set_text_color(255)
+	pdf.image('confidenceBox.png', x - 2.8, y - 3, w = width)
+	if printSlash:
+		pdf.text(x + xAdjust, y + yAdjust, txt='—')
+	elif confidence < 10:
+		pdf.text(x - 0.3 + xAdjust, y + yAdjust, txt=str(confidence) + '%')
+	elif confidence < 100:
+		pdf.text(x - 1.2 + xAdjust, y + yAdjust, txt=str(confidence) + '%')
+	else:
+		pdf.text(x - 2.2 + xAdjust, y + yAdjust, txt=str(confidence) + '%')
+	pdf.set_text_color(0)
+
+
+def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path = 'images/test/'):
+
+
+	pdf.set_fill_color(245)
+
+	# get visually simillar url lists
+	urls = getVisuallySimilarImages(jsonImg, pk)
+	for i in range(len(urls)):
+		downloadImage(urls[i], str(pk)+'_'+str(i+1)+'.jpg')
+	
+	pdf.image('visuallySimilar.png', xShift - 4.5, yShift + 29, w = 3.5)
+	
+	for i in range(len(urls)):
+		maxSize = 37.8
+		pdf.rect(xShift-0.1, yShift + i*45 - 0.1, maxSize + 0.2, maxSize + 0.2, style = 'DF')
+
+		imSize = Image.open(path + str(pk) + '_' + str(i+1) + '.jpg').size
+		# horizontal image
+		if imSize[0] > imSize[1]:
+			imSize = scaleToDefaultWidth(imSize, maxSize)
+			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift, y = i*45 + yShift + (maxSize - imSize[1])/2, w = maxSize)
+		
+		# vertical image
+		else:
+			imSize = scaleToDefaultHeight(imSize, maxSize)
+			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y =  i*45 + yShift, h = maxSize)
+
+def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
+
+	pdf.set_text_color(24, 188, 156)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.set_fill_color(240)
+	pdf.rect(xShift, yShift, 38, 8, 'DF')
+	pdf.text(xShift + 2, yShift + 5, txt = 'Google Cloud Vision')
+	
+	# best guess
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_text_color(120)
+	pdf.text(xShift + 42, yShift + 5.5, txt = 'best guess:')
+	pdf.set_text_color(0)
+	pdf.text(xShift + 61, yShift + 5.5, txt = getGoogleBestGuessLabel(jsonImg))
+
+	# safe search annotations
+	#pdf.set_font('NeutralStd', '', size = 9)
+	#pdf.set_text_color(120)
+	#pdf.text(xShift + 5, yShift + 18, txt = 'safe search annotations:')
+	#pdf.set_text_color(0)
+	
+	safeAnnotationsDict = getGoogleSafeSearchAnnotations(jsonImg)
+	pdf.set_text_color(120)
+	yAdjust = 12.5
+	pdf.text(xShift + 5, yShift + yAdjust, 'violence:')
+	pdf.text(xShift + 30, yShift + yAdjust, 'medical:')
+	pdf.text(xShift + 55, yShift + yAdjust, 'adult:')
+	pdf.text(xShift + 80, yShift + yAdjust, 'spoof:')
+	pdf.text(xShift + 105, yShift + yAdjust, 'racy:')
+
+	pdf.set_text_color(0)
+	pdf.text(xShift + 5, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['violence'].lower().split('_')))
+	pdf.text(xShift + 30, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['medical'].lower().split('_')))
+	pdf.text(xShift + 55, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['adult'].lower().split('_')))
+	pdf.text(xShift + 80, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['spoof'].lower().split('_')))
+	pdf.text(xShift + 105, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['racy'].lower().split('_')))
+
+
+	# labels
+	labelsDictList = getGoogleLabelAnnotations(jsonImg)
+
+	labelsList = [item['description'] for item in labelsDictList]
+	confidenceList = [int(item['score']*100) for item in labelsDictList]
+	pdf.set_text_color(120)
+	pdf.text(xShift + 5, yShift + 27, txt = 'labels:')
+	xSpacing = 36
+	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 3, 9
+	while i < len(labelsList) and numPrintedLabels < maxLabels:
+		label, confidence = labelsList[i], confidenceList[i]
+		if len(label) <= 15:
+			addConfidenceBox(pdf, xShift + 20 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 23 + numPrintedLabels%numOnColumn * 4.5, confidence)
+			pdf.set_font('NeutralStd', '', size = 9)
+			pdf.text(xShift + 25 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 22.6 + numPrintedLabels%numOnColumn * 4.5, txt = label)
+			numPrintedLabels += 1
+		i += 1
+
+	# text
+	pdf.set_text_color(120)
+	pdf.text(xShift + 5, yShift + 38.5, txt = 'text:')
+	pdf.set_text_color(0)
+	print(getGoogleTextAnnotation(jsonImg).lower())
+	pdf.text(xShift + 14, yShift + 38.5, txt = getGoogleTextAnnotation(jsonImg).lower())
+
+def addAiResults(pdf, jsonImg, kind = 'G', xShift = 10, yShift = 113, second = False):
+
+	heigth, width = 40, 128.5
+	if second:
+		yShift += (heigth + 6)
+	pdf.set_fill_color(250)
+	pdf.rect(xShift, yShift, width, heigth, 'DF')
+
+	# Google Cloud Vision
+	if kind == 'G':
+		addGoogleCloudVision(pdf, jsonImg,  xShift, yShift, second)
+	
+	# Amazon Rekognition
+	if kind == 'A':
+		pass
+
+	# IBM Watson
+	if kind == 'I':
+		pass
+
+	# ClarifAI
+	if kind == 'C':
+		pass
+
+	# Dark YOLO
+	if kind == 'D':
+		pass
+
+
+def addFonts(pdf):
+
+	# add Neutral fonts to pdf object
+	pdf.add_font('NeutralStd', '', 'fonts/NeutralStd-Regular.ttf', uni = True)
+	pdf.add_font('NeutralStd', 'B', 'fonts/NeutralStd-Bold.ttf', uni = True)
+	pdf.add_font('NeutralStd', 'I', 'fonts/NeutralStd-RegularItalic.ttf', uni = True)
+
+
+def addResults(pdf, data, pkAIList):
+
+	pkList, AIList = [], []
+	for result in pkAIList:
+		pkList.append(result[0])
+		AIList.append(result[1])
+
+	## results
+
+	# all pk inside data
+	allPk = [data['images'][i]['pk'] for i in range(len(data['images']))]
+
+	i = 0
+	while i < len(pkList):
+		pdf.add_page()
+		pk = pkList[i]
+
+		# check if pk is in list
+		try:
+			index = allPk.index(pk)
+		except:
+			print('Erro:', pk, 'not in data!')
+			continue
+
+		jsonImg = data['images'][index]
+
+		addImage(pdf, jsonImg, pk)
+		addName(pdf, jsonImg, number = i+1)
+		addVisualSimilarImages(pdf, jsonImg, pk)
+		addAiResults(pdf, jsonImg)
+		addAiResults(pdf, jsonImg, second = True)
+		i+=1
+
+def addCollaborators(pdf, collaborators):
+
+	pdf.add_page()
+
+	# collaborators title
+	pdf.ln(10)
+	title1 = 'COLLABORATORS'
+	pdf.set_font('NeutralStd', 'B', size = 25)
+	pdf.cell(0, 20, txt=title1, ln=1, align="C")
+
+	pdf.set_font('NeutralStd', '', size = 10)
+	pdf.ln(10)
+	for i in range(len(collaborators)):
+		# next line
+		pdf.ln(1)
+
+		# select collaborator
+		collaborator = collaborators[i]
+		if i%2 == 0:
+			pdf.cell(0, 3, txt='   '+collaborator, ln=1, align="L")
+		else:
+			pdf.cell(0, 3, txt=collaborator+'   ', ln=1, align="R")
+
+
+
+def makeZine(jsonPath, collaborators, pkAIList):
+
+	# read json file
+	with open(jsonPath) as jsonFile:
+	    data = json.load(jsonFile)
+	print('## json is ready!')
+
+	# initialize pdf
+	pdf = FPDF(orientation='P', unit='mm', format='A5')
+	
+	# add NeutralStd fonts
+	addFonts(pdf)
+
+	# add results
+	addResults(pdf, data, pkAIList)
+	print('## results are ready!')
+
+	# add collaborators
+	addCollaborators(pdf, collaborators)
+	print('## collaborators is ready!')
+
+	# add glossary page
+
+	# output partial zine
+	pdf.output("partialZine.pdf")
+
+	# add cover page
+	zine = PdfFileMerger()
+	zine.merge(0, 'capa.pdf')
+	zine.merge(1, 'contracapa.pdf')
+	zine.merge(2, 'partialZine.pdf')
+	zine.write('zine.pdf')
+	print('## zine is ready!')
+
+def getCollaborators(path):
+
+	# returns a sorted list of names
+
+	listCollaborators = []
+	with open(path, 'r') as file:
+		collaborator = file.readline().strip()
+		while not collaborator == '':
+			listCollaborators.append(collaborator)
+			collaborator = file.readline().strip()
+	listCollaborators.sort()
+
+	return listCollaborators
+
+def getPkAIList(path):
+
+	pkAIList = []
+	with open(path, 'r') as file:
+		temp = file.readline().split(',')
+		temp = [item.strip() for item in temp]
+		while len(temp) == 3:
+			pkAIList.append([int(temp[0]), temp[1:]])
+			
+			temp = file.readline().split(',')
+			temp = [item.strip() for item in temp]
+
+	# return a list of [[pk, [AI1, AI2]], ...]
+	return pkAIList
+
+if __name__ == '__main__':
+
+	jsonPath = input('Enter json file name, or \'0\' for defaut: ')
+	if jsonPath == '0':
+		jsonPath = 'jsonFiles/pinacoteca.json'
+	else:
+		jsonPath = 'jsonFiles/' + jsonPath
+
+	collaboratorsPath = 'collaborators.txt'
+	collaborators = getCollaborators(collaboratorsPath)
+
+	pkAIPath = 'pkAIList.txt'
+	pkAIList = getPkAIList(pkAIPath)
+
+	print('Zine its being made, migth take some minutes...')
+	makeZine(jsonPath, collaborators, pkAIList)
