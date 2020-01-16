@@ -140,10 +140,15 @@ def getAmazonLabels(jsonImg):
 
 # ClarifAI
 
-def getNsfw(jsonImg):
+def getClarifAINsfw(jsonImg):
 
 	# return a percentage value (0 to 100)
 	return jsonImg['clarifai']['nsfw']['concepts'][1]['value']*100
+def getClarifAIGeneralResults(jsonImg):
+	#return a list of tuples with label and percentage
+	results = [ (jsonImg['clarifai']['general']['concepts'][index]['name'], jsonImg['clarifai']['general']['concepts'][index]['value']) for index in range(len(jsonImg['clarifai']['general']['concepts']))]
+	return results
+
 
 ## Zine processing
 
@@ -255,6 +260,34 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 		else:
 			imSize = scaleToDefaultHeight(imSize, maxSize)
 			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y =  i*45 + yShift, h = maxSize)
+def addClarifAI(pdf, jsonImg, xShift, yShift, second):
+	pdf.set_text_color(24, 188, 156)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.set_fill_color(240)
+	pdf.rect(xShift, yShift, 38, 8, 'DF')
+	pdf.text(xShift + 2, yShift + 5, txt = 'ClarifAI')
+
+	#General Results
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_text_color(120)
+	distanceY = 13
+	distanceX = 2
+	#pdf.text(xShift + distanceX, yShift + distanceY, txt = 'General')
+	#pdf.text(xShift + distanceX, yShift + distanceY+3, txt = 'Results')
+	#pdf.text(xShift + distanceX + 12.5, yShift + distanceY + 1, txt = ':')
+
+	xSpacing = 31.75
+	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 5, 20
+	labelsList = getClarifAIGeneralResults(jsonImg)
+	displaceY = 12.5
+	displaceX = 4
+	while i < len (labelsList) and numPrintedLabels < maxLabels:
+		if len(labelsList[i][0]) <= 15:
+			addConfidenceBox(pdf, xShift + displaceX + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY + numPrintedLabels%numOnColumn*4.5, int((labelsList[i][1]*100)//1))
+			pdf.set_font('NeutralStd', '', size=9)
+			pdf.text(xShift + displaceX + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY - 0.4 + numPrintedLabels%numOnColumn * 4.5, txt = labelsList[i][0])
+			numPrintedLabels += 1
+		i += 1
 
 def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 
@@ -319,7 +352,7 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	print(getGoogleTextAnnotation(jsonImg).lower())
 	pdf.text(xShift + 14, yShift + 38.5, txt = getGoogleTextAnnotation(jsonImg).lower())
 
-def addAiResults(pdf, jsonImg, kind = 'G', xShift = 10, yShift = 113, second = False):
+def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = False):
 
 	heigth, width = 40, 128.5
 	if second:
@@ -341,7 +374,7 @@ def addAiResults(pdf, jsonImg, kind = 'G', xShift = 10, yShift = 113, second = F
 
 	# ClarifAI
 	if kind == 'C':
-		pass
+		addClarifAI(pdf, jsonImg, xShift, yShift, second)
 
 	# Dark YOLO
 	if kind == 'D':
@@ -378,6 +411,7 @@ def addResults(pdf, data, pkAIList):
 			index = allPk.index(pk)
 		except:
 			print('Erro:', pk, 'not in data!')
+			i += 1
 			continue
 
 		jsonImg = data['images'][index]
@@ -443,8 +477,8 @@ def makeZine(jsonPath, collaborators, pkAIList):
 	# add cover page
 	zine = PdfFileMerger()
 	zine.merge(0, 'capa.pdf')
-	zine.merge(1, 'contracapa.pdf')
-	zine.merge(2, 'partialZine.pdf')
+	zine.merge(1, 'partialZine.pdf')
+	zine.merge(2, 'contracapa.pdf')
 	zine.write('zine.pdf')
 	print('## zine is ready!')
 
