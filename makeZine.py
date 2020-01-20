@@ -68,7 +68,10 @@ def getGoogleSafeSearchAnnotations(jsonImg):
 
 def getGoogleLabelAnnotations(jsonImg):
 	
-	labelsList = jsonImg['googlecloud']['labelAnnotations']
+	try:
+		labelsList = jsonImg['googlecloud']['labelAnnotations']
+	except:
+		return None
 	for i, result in enumerate(labelsList):
 		labelsList[i] = {'description': result['description'].lower(), 'score': result['score']}
 
@@ -78,7 +81,11 @@ def getGoogleLabelAnnotations(jsonImg):
 def getGoogleBestGuessLabel(jsonImg):
 	
 	# return a string
-	return jsonImg['googlecloud']['webDetection']['bestGuessLabels'][0]['label']
+	try:
+		label = jsonImg['googlecloud']['webDetection']['bestGuessLabels'][0]['label']
+	except:
+		label = 'can\'t make a guess'
+	return label
 
 def getGoogleTextAnnotation(jsonImg):
 	
@@ -91,8 +98,10 @@ def getGoogleTextAnnotation(jsonImg):
 	return text
 
 def getVisuallySimilarImages(jsonImg, pk):
-	temp = jsonImg['googlecloud']['webDetection']['visuallySimilarImages']
-	
+	try:
+		temp = jsonImg['googlecloud']['webDetection']['visuallySimilarImages']
+	except:
+		return None
 	urls = []
 	i = 0
 	while len(urls) < 2 and i < len(temp):
@@ -272,12 +281,27 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 	pdf.set_fill_color(245)
 
 	# get visually simillar url lists
+	noImage = False
 	urls = getVisuallySimilarImages(jsonImg, pk)
-	for i in range(len(urls)):
-		downloadImage(urls[i], str(pk)+'_'+str(i+1)+'.jpg')
+	if urls is None:
+		noImage = True
+	if noImage is False:
+		for i in range(len(urls)):
+			downloadImage(urls[i], str(pk)+'_'+str(i+1)+'.jpg')
 	
 	pdf.image('src/images/pdfImages/visuallySimilar.png', xShift - 4.5, yShift + 29, w = 3.5)
 	
+	if noImage:
+		maxSize = 38
+
+		pdf.rect(xShift-0.1, yShift + 0*45 - 0.1, maxSize + 0.2, maxSize + 0.2, style = 'DF')
+		pdf.image('src/images/pdfImages/noImageFound.png', x = xShift, y = 0*45 + yShift + maxSize, w = maxSize-0.1)
+
+		pdf.rect(xShift-0.1, yShift + 1*45 - 0.1, maxSize + 0.2, maxSize + 0.2, style = 'DF')
+		pdf.image('src/images/pdfImages/noImageFound.png', x = xShift, y = 1*45 + yShift + maxSize, w = maxSize-0.1)
+
+		return
+
 	for i in range(len(urls)):
 		maxSize = 38
 		pdf.rect(xShift-0.1, yShift + i*45 - 0.1, maxSize + 0.2, maxSize + 0.2, style = 'DF')
@@ -338,8 +362,11 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 	for i in range(len(cat)):
 		if cat[i]['score'] > imax:
 			imax = i
-	pdf.text(xShift+displaceX + 29, yShift+displaceY+3.5, txt = removeUnderline(cat[i]['name'].lower()))
-	
+	try:
+		pdf.text(xShift+displaceX + 29, yShift+displaceY+3.5, txt = removeUnderline(cat[imax]['name'].lower()))
+	except:
+		pdf.text(xShift+displaceX + 29, yShift+displaceY+3.5, txt = 'no category')
+
 	confidenceLabelsDictList = getMicossoftAzureConfidenceTags(jsonImg)
 	descriptionLabels = getMicossoftAzureDescriptionTags(jsonImg)
 	labelsList = []
@@ -495,22 +522,23 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 
 	# labels
 	labelsDictList = getGoogleLabelAnnotations(jsonImg)
-
-	labelsList = [item['description'] for item in labelsDictList]
-	confidenceList = [int(item['score']*100) for item in labelsDictList]
-	pdf.set_text_color(120)
-	pdf.set_font('NeutralStd', '', size = 9)
-	pdf.text(xShift + 5, yShift + 27, txt = 'labels:')
-	xSpacing = 36
-	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 3, 9
-	while i < len(labelsList) and numPrintedLabels < maxLabels:
-		label, confidence = labelsList[i], confidenceList[i]
-		if len(label) <= 18:
-			addConfidenceBox(pdf, xShift + 20 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 23 + numPrintedLabels%numOnColumn * 4.5, confidence)
-			pdf.set_font('NeutralStd', '', size = 8)
-			pdf.text(xShift + 25 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 22.6 + numPrintedLabels%numOnColumn * 4.5, txt = label)
-			numPrintedLabels += 1
-		i += 1
+	
+	if labelsDictList is not None:
+		labelsList = [item['description'] for item in labelsDictList]
+		confidenceList = [int(item['score']*100) for item in labelsDictList]
+		pdf.set_text_color(120)
+		pdf.set_font('NeutralStd', '', size = 9)
+		pdf.text(xShift + 5, yShift + 27, txt = 'labels:')
+		xSpacing = 36
+		i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 3, 9
+		while i < len(labelsList) and numPrintedLabels < maxLabels:
+			label, confidence = labelsList[i], confidenceList[i]
+			if len(label) <= 18:
+				addConfidenceBox(pdf, xShift + 20 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 23 + numPrintedLabels%numOnColumn * 4.5, confidence)
+				pdf.set_font('NeutralStd', '', size = 8)
+				pdf.text(xShift + 25 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 22.6 + numPrintedLabels%numOnColumn * 4.5, txt = label)
+				numPrintedLabels += 1
+			i += 1
 
 	# text
 	pdf.set_font('NeutralStd', '', size = 9)
@@ -622,6 +650,7 @@ def addResults(pdf, dataList, idGaleryAIList):
 	while i < len(pkList):
 		pdf.add_page()
 		pk = pkList[i]
+		print('# pk: {} | result: {} | galery: {}'.format(pk, idGaleryList[i][0], idGaleryList[i][1]))
 		galeryIndex = galeryIndexList[i]
 		AI = AIList[i]
 
