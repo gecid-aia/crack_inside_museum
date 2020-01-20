@@ -127,7 +127,7 @@ def getGuessName(jsonImg):
 def getDensecapImage(jsonImg):
 
 	# returns a url of densecap full analysed image
-	return jsonImg['dense_cap_full_image']
+	return jsonImg['dense_cap_image']
 
 
 # Amazon Rekognition
