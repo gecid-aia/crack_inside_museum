@@ -596,7 +596,7 @@ def addFonts(pdf):
 	pdf.add_font('NeutralStd', 'I', 'src/fonts/NeutralStd-RegularItalic.ttf', uni = True)
 
 
-def addResults(pdf, data, pkAIList):
+def addResults(pdf, dataList, pkAIList):
 
 	pkList, AIList = [], []
 	for result in pkAIList:
@@ -605,8 +605,11 @@ def addResults(pdf, data, pkAIList):
 
 	## results
 
-	# all pk inside data
-	allPk = [data['images'][i]['pk'] for i in range(len(data['images']))]
+	# all pk inside datas
+	allPk = []
+	for data in dataList:
+		for img in data['images']:
+			allPk.append(img['pk'])
 
 	i = 0
 	while i < len(pkList):
@@ -654,12 +657,14 @@ def addCollaborators(pdf, collaborators):
 		else:
 			pdf.cell(0, 3, txt=collaborator+'   ', ln=1, align="R")
 
-def makeZine(jsonPath, collaborators, pkAIList):
+def makeZine(jsonPathList, collaborators, pkAIList):
 
-	# read json file
-	with open(jsonPath) as jsonFile:
-		data = json.load(jsonFile)
-	print('## json is ready!')
+	# read jsons files
+	dataList = []
+	for jsonPath in jsonPathList:
+		with open(jsonPath) as jsonFile:
+			dataList.append(json.load(jsonFile))
+	print('## jsons are ready!')
 
 	# initialize pdf
 	pdf = FPDF(orientation='P', unit='mm', format='A5')
@@ -668,7 +673,7 @@ def makeZine(jsonPath, collaborators, pkAIList):
 	addFonts(pdf)
 
 	# add results
-	addResults(pdf, data, pkAIList)
+	addResults(pdf, dataList, pkAIList)
 	print('## results are ready!')
 
 	# add collaborators
@@ -715,13 +720,14 @@ def getPkAIList(path):
 	with open(path, 'r') as file:
 		temp = file.readline().split(',')
 		temp = [item.strip() for item in temp]
-		while len(temp) == 3:
-			pkAIList.append([int(temp[0]), temp[1:]])
+		while len(temp) == 4:
+			aux = [int(value) for value in temp[0:2]]
+			pkAIList.append([aux, temp[2:]])
 			
 			temp = file.readline().split(',')
 			temp = [item.strip() for item in temp]
 
-	# return a list of [[pk, [AI1, AI2]], ...]
+	# return a list of [[[#, galeria], [AI1, AI2]], ...]
 	return pkAIList
 
 if __name__ == '__main__':
@@ -765,17 +771,18 @@ if __name__ == '__main__':
 	print (d)
 
 
-	jsonPath = input('Enter json file name, or \'0\' for defaut: ')
-	if jsonPath == '0':
-		jsonPath = 'src/jsonFiles/pinacoteca.json'
+	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
+	if jsonPaths == '0':
+		jsonPathList = ['src/jsonFiles/pinacoteca.json']
 	else:
-		jsonPath = 'src/jsonFiles/' + jsonPath
+		jsonPathList = ['src/jsonFiles/' + path.strip() for path in jsonPaths.split(',')]
 
 	collaboratorsPath = 'collaborators.txt'
 	collaborators = getCollaborators(collaboratorsPath)
 
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
+	print(jsonPathList)
 
 	print('Zine its being made, migth take some minutes...')
-	makeZine(jsonPath, collaborators, pkAIList)
+	makeZine(jsonPathList, collaborators, pkAIList)
