@@ -122,6 +122,9 @@ def getGuessName(jsonImg):
 	# returns a dictionary of a produced by the AI, if it fails to find, returns {text: 'No title', confidence: 100}
 	return caption
 
+def getMicrosoftAzureAdult(jsonImg):
+	return jsonImg['microsoftazure']['main']['adult']
+
 # Densecap
 
 def getDensecapImage(jsonImg):
@@ -278,8 +281,32 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(24, 188, 156)
 	pdf.set_font('NeutralStd', 'B', size = 9)
 	pdf.set_fill_color(240)
-	pdf.rect(xShift, yShift, 17, 8, 'DF')
-	pdf.text(xShift + 2, yShift + 5, txt = 'ClarifAI')
+	pdf.rect(xShift, yShift, 31, 8, 'DF')
+	pdf.text(xShift + 2, yShift + 5, txt = 'Microsoft Azure')
+	
+	#moderation
+	pdf.set_font('NeutralStd', '', size = 8)
+	pdf.set_text_color(120)
+	distanceY = 13
+	distanceX = 2
+
+	displaceX = 33
+	displaceY = 4
+	adult = getMicrosoftAzureAdult(jsonImg)
+	racyScore = int(adult['racyScore']*100)
+	isRacy = str(adult['isRacyContent'])
+	adultScore = int(adult['adultScore']*100)
+	isAdult = str(adult['isAdultContent'])
+
+	pdf.text(xShift+displaceX, yShift+displaceY - 0.4, txt = 'Is Adult Content?')
+	pdf.text(xShift+displaceX, yShift+displaceY - 0.4 + 5, txt = 'Is Racy Content?')
+	pdf.set_text_color(0) #text color
+	pdf.text(xShift+displaceX + 45, yShift+displaceY - 0.4, txt = 'adult')
+	pdf.text(xShift+displaceX + 45, yShift+displaceY - 0.6 + 5, txt = 'racy')
+	pdf.text(xShift+displaceX + 26, yShift+displaceY - 0.4, txt = isAdult)
+	pdf.text(xShift+displaceX + 26, yShift+displaceY - 0.4 + 5, txt = isRacy)
+	addConfidenceBox(pdf, xShift + displaceX + 40, yShift + displaceY-0.4, adultScore, color='green')
+	addConfidenceBox(pdf, xShift + displaceX + 40, yShift + displaceY+4.6, racyScore, color='green')
 	
 
 def addClarifAI(pdf, jsonImg, xShift, yShift, second):
