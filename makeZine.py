@@ -9,26 +9,26 @@ from PyPDF2 import PdfFileMerger
 ## Image processing
 
 def scaleToDefaultHeight(size, defaulSize):
-    
-    width = size[0]
-    height = size[1]
-    defaultHeight = defaulSize
-    
-    scale = height/defaultHeight
-    
-    newSize = (int(width/scale), int(height/scale))
-    return newSize
+	
+	width = size[0]
+	height = size[1]
+	defaultHeight = defaulSize
+	
+	scale = height/defaultHeight
+	
+	newSize = (int(width/scale), int(height/scale))
+	return newSize
 
 def scaleToDefaultWidth(size, defaulSize):
-    
-    width = size[0]
-    height = size[1]
-    defaultWidth = defaulSize
-    
-    scale = width/defaultWidth
-    
-    newSize = (int(width/scale), int(height/scale))
-    return newSize
+	
+	width = size[0]
+	height = size[1]
+	defaultWidth = defaulSize
+	
+	scale = width/defaultWidth
+	
+	newSize = (int(width/scale), int(height/scale))
+	return newSize
 
 def imageIsDownloaded(pathToFile):
 
@@ -141,9 +141,18 @@ def getAmazonLabels(jsonImg):
 # ClarifAI
 
 def getClarifAINsfw(jsonImg):
-
 	# return a percentage value (0 to 100)
-	return jsonImg['clarifai']['nsfw']['concepts'][1]['value']*100
+	index = 0
+	if (jsonImg['clarifai']['nsfw']['concepts'][index]['name']) == 'sfw':
+		index = 1
+	return jsonImg['clarifai']['nsfw']['concepts'][index]['value']*100
+def getClarifAIModeration(jsonImg):
+	#return a dictionary with percentages indexed by tag name 
+	result = {}
+	for item in jsonImg['clarifai']['moderation']['concepts']:
+		result[item['name']] = int(item['value']*100)
+	return result
+
 def getClarifAIGeneralResults(jsonImg):
 	#return a list of tuples with label and percentage
 	results = [ (jsonImg['clarifai']['general']['concepts'][index]['name'], jsonImg['clarifai']['general']['concepts'][index]['value']) for index in range(len(jsonImg['clarifai']['general']['concepts']))]
@@ -191,7 +200,7 @@ def addName(pdf, jsonImg, number):
 	pdf.set_fill_color(240)
 	pdf.set_text_color(0)
 	pdf.set_font('NeutralStd', 'B', size = 10)
-	pdf.cell(0, 8, txt='              '+name, ln=1, align='L', border = 1, fill = True)
+	pdf.cell(0, 8, txt='			  '+name, ln=1, align='L', border = 1, fill = True)
 	
 	pdf.set_fill_color(52, 152, 219)
 	pdf.set_font('NeutralStd', '', size = 10)
@@ -264,7 +273,7 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(24, 188, 156)
 	pdf.set_font('NeutralStd', 'B', size = 9)
 	pdf.set_fill_color(240)
-	pdf.rect(xShift, yShift, 38, 8, 'DF')
+	pdf.rect(xShift, yShift, 17, 8, 'DF')
 	pdf.text(xShift + 2, yShift + 5, txt = 'ClarifAI')
 
 	#General Results
@@ -275,7 +284,8 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	#pdf.text(xShift + distanceX, yShift + distanceY, txt = 'General')
 	#pdf.text(xShift + distanceX, yShift + distanceY+3, txt = 'Results')
 	#pdf.text(xShift + distanceX + 12.5, yShift + distanceY + 1, txt = ':')
-
+	
+	#Labels
 	xSpacing = 31.75
 	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 5, 20
 	labelsList = getClarifAIGeneralResults(jsonImg)
@@ -284,10 +294,37 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	while i < len (labelsList) and numPrintedLabels < maxLabels:
 		if len(labelsList[i][0]) <= 15:
 			addConfidenceBox(pdf, xShift + displaceX + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY + numPrintedLabels%numOnColumn*4.5, int((labelsList[i][1]*100)//1))
-			pdf.set_font('NeutralStd', '', size=9)
+			pdf.set_font('NeutralStd', '', size=8)
 			pdf.text(xShift + displaceX + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY - 0.4 + numPrintedLabels%numOnColumn * 4.5, txt = labelsList[i][0])
 			numPrintedLabels += 1
 		i += 1
+
+	#nsfw
+	displaceX = 22
+	displaceY = 5
+	value = getClarifAINsfw(jsonImg)
+	pdf.text(xShift+displaceX + 5, yShift+displaceY - 0.4, txt = 'nsfw')
+	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, int(value))
+
+	#moderation
+	displaceX = 4
+	displaceY = 37
+	value = getClarifAIModeration(jsonImg)
+	sp = ' '*15
+	text = 'safe:'+sp+'suggestive:'+sp+'explicit:'+sp+'gore:'+sp+'drug:'
+	pdf.set_font('NeutralStd', '', size=8)
+	pdf.text(xShift+displaceX+5, yShift+displaceY, txt = 'safe')
+	pdf.text(xShift+displaceX+21, yShift+displaceY, txt = 'suggestive')
+	pdf.text(xShift+displaceX+46, yShift+displaceY, txt = 'explicit')
+	pdf.text(xShift+displaceX+66, yShift+displaceY, txt = 'gore')
+	pdf.text(xShift+displaceX+83, yShift+displaceY, txt = 'drug')
+	displaceY += 0.2
+	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, value['safe'])
+	addConfidenceBox(pdf, xShift + displaceX + 16, yShift + displaceY, value['suggestive'])
+	addConfidenceBox(pdf, xShift + displaceX + 41, yShift + displaceY, value['explicit'])
+	addConfidenceBox(pdf, xShift + displaceX + 61, yShift + displaceY, value['gore'])
+	addConfidenceBox(pdf, xShift + displaceX + 78, yShift + displaceY, value['drug'])
+
 
 def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 
@@ -452,7 +489,7 @@ def makeZine(jsonPath, collaborators, pkAIList):
 
 	# read json file
 	with open(jsonPath) as jsonFile:
-	    data = json.load(jsonFile)
+		data = json.load(jsonFile)
 	print('## json is ready!')
 
 	# initialize pdf
