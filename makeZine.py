@@ -200,8 +200,8 @@ def addName(pdf, jsonImg, number):
 
 	pdf.set_fill_color(240)
 	pdf.set_text_color(0)
-	pdf.set_font('NeutralStd', 'B', size = 10)
-	pdf.cell(0, 8, txt='			  '+name, ln=1, align='L', border = 1, fill = True)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.cell(0, 8, txt='                 '+name, ln=1, align='L', border = 1, fill = True)
 	
 	pdf.set_fill_color(52, 152, 219)
 	pdf.set_font('NeutralStd', '', size = 10)
