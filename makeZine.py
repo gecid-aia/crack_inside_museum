@@ -38,7 +38,7 @@ def imageIsDownloaded(pathToFile):
 		return False
 	return True
 
-def downloadImage(url, name, path = 'images/test/', checkIfIsDownloaded = True):
+def downloadImage(url, name, path = 'src/images/collectionImages/', checkIfIsDownloaded = True):
 
 	isDownloaded = False
 	if checkIfIsDownloaded and imageIsDownloaded(path + name):
@@ -161,7 +161,7 @@ def getClarifAIGeneralResults(jsonImg):
 
 ## Zine processing
 
-def addImage(pdf, jsonImg, pk, path = 'images/test/', xShift = 10, yShift = 24):
+def addImage(pdf, jsonImg, pk, path = 'src/images/collectionImages/', xShift = 10, yShift = 24):
 
 	url = getDensecapImage(jsonImg)
 	downloadImage(url, str(pk) + '.jpg', path)
@@ -231,7 +231,7 @@ def addConfidenceBox(pdf, x, y, confidence, printSlash = False, head = False):
 
 	pdf.set_font('NeutralStd', 'B', size = textSize)
 	pdf.set_text_color(255)
-	pdf.image('confidenceBox.png', x - 2.8, y - 3, w = width)
+	pdf.image('src/images/pdfImages/confidenceBox.png', x - 2.8, y - 3, w = width)
 	if printSlash:
 		pdf.text(x + xAdjust, y + yAdjust, txt='—')
 	elif confidence < 10:
@@ -243,7 +243,7 @@ def addConfidenceBox(pdf, x, y, confidence, printSlash = False, head = False):
 	pdf.set_text_color(0)
 
 
-def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path = 'images/test/'):
+def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path = 'src/images/collectionImages/'):
 
 
 	pdf.set_fill_color(245)
@@ -253,7 +253,7 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 	for i in range(len(urls)):
 		downloadImage(urls[i], str(pk)+'_'+str(i+1)+'.jpg')
 	
-	pdf.image('visuallySimilar.png', xShift - 4.5, yShift + 29, w = 3.5)
+	pdf.image('src/images/pdfImages/visuallySimilar.png', xShift - 4.5, yShift + 29, w = 3.5)
 	
 	for i in range(len(urls)):
 		maxSize = 37.8
@@ -421,9 +421,9 @@ def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = F
 def addFonts(pdf):
 
 	# add Neutral fonts to pdf object
-	pdf.add_font('NeutralStd', '', 'fonts/NeutralStd-Regular.ttf', uni = True)
-	pdf.add_font('NeutralStd', 'B', 'fonts/NeutralStd-Bold.ttf', uni = True)
-	pdf.add_font('NeutralStd', 'I', 'fonts/NeutralStd-RegularItalic.ttf', uni = True)
+	pdf.add_font('NeutralStd', '', 'src/fonts/NeutralStd-Regular.ttf', uni = True)
+	pdf.add_font('NeutralStd', 'B', 'src/fonts/NeutralStd-Bold.ttf', uni = True)
+	pdf.add_font('NeutralStd', 'I', 'src/fonts/NeutralStd-RegularItalic.ttf', uni = True)
 
 
 def addResults(pdf, data, pkAIList):
@@ -509,13 +509,13 @@ def makeZine(jsonPath, collaborators, pkAIList):
 	# add glossary page
 
 	# output partial zine
-	pdf.output("partialZine.pdf")
+	pdf.output("src/pdfPages/partialZine.pdf")
 
 	# add cover page
 	zine = PdfFileMerger()
-	zine.merge(0, 'capa.pdf')
-	zine.merge(1, 'partialZine.pdf')
-	zine.merge(2, 'contracapa.pdf')
+	zine.merge(0, 'src/pdfPages/capa.pdf')
+	zine.merge(1, 'src/pdfPages/partialZine.pdf')
+	zine.merge(2, 'src/pdfPages/contracapa.pdf')
 	zine.write('zine.pdf')
 	print('## zine is ready!')
 
@@ -552,9 +552,9 @@ if __name__ == '__main__':
 
 	jsonPath = input('Enter json file name, or \'0\' for defaut: ')
 	if jsonPath == '0':
-		jsonPath = 'jsonFiles/pinacoteca.json'
+		jsonPath = 'src/jsonFiles/pinacoteca.json'
 	else:
-		jsonPath = 'jsonFiles/' + jsonPath
+		jsonPath = 'src/jsonFiles/' + jsonPath
 
 	collaboratorsPath = 'collaborators.txt'
 	collaborators = getCollaborators(collaboratorsPath)
