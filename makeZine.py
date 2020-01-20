@@ -292,19 +292,20 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	#General Results
 	pdf.set_font('NeutralStd', '', size = 9)
 	pdf.set_text_color(120)
+	pdf.text(xShift + 5, yShift + 12.5, txt = 'labels:')
 	distanceY = 13
 	distanceX = 2
-	#pdf.text(xShift + distanceX, yShift + distanceY, txt = 'General')
-	#pdf.text(xShift + distanceX, yShift + distanceY+3, txt = 'Results')
-	#pdf.text(xShift + distanceX + 12.5, yShift + distanceY + 1, txt = ':')
 	
 	#Labels
 	xSpacing = 31.75
-	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 5, 20
+	i, numPrintedLabels, numOnColumn, maxLabels, skipStart = 0, 0, 5, 20, 1
 	labelsList = getClarifAIGeneralResults(jsonImg)
-	displaceY = 12.5
-	displaceX = 4
+	displaceY = 13
+	displaceX = 8
 	while i < len (labelsList) and numPrintedLabels < maxLabels:
+		if skipStart > numPrintedLabels:
+			numPrintedLabels += 1
+			continue
 		if len(labelsList[i][0]) <= 15:
 			addConfidenceBox(pdf, xShift + displaceX + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY + numPrintedLabels%numOnColumn*4.5, int((labelsList[i][1]*100)//1))
 			pdf.set_font('NeutralStd', '', size=8)
@@ -313,14 +314,27 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 		i += 1
 
 	#nsfw
-	displaceX = 22
-	displaceY = 5
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_text_color(120)
+	pdf.text(xShift + 21, yShift + 5.5, txt = 'safe for work?')
+
+
+	displaceX = 49
+	displaceY = 5.7
+	pdf.set_font('NeutralStd', '', size = 8)
 	value = getClarifAINsfw(jsonImg)
+	pdf.set_text_color(0)
 	pdf.text(xShift+displaceX + 5, yShift+displaceY - 0.4, txt = 'nsfw')
 	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, int(value), color='green')
 
 	#moderation
-	displaceX = 4
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_text_color(120)
+	pdf.text(xShift + 5, yShift + 37, 'moderation:')
+
+	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', '', size = 8)
+	displaceX = 30
 	displaceY = 37
 	value = getClarifAIModeration(jsonImg)
 	sp = ' '*15
