@@ -596,7 +596,7 @@ def addFonts(pdf):
 	pdf.add_font('NeutralStd', 'I', 'src/fonts/NeutralStd-RegularItalic.ttf', uni = True)
 
 
-def addResults(pdf, data, pkAIList):
+def addResults(pdf, dataList, pkAIList):
 
 	pkList, AIList = [], []
 	for result in pkAIList:
@@ -605,8 +605,11 @@ def addResults(pdf, data, pkAIList):
 
 	## results
 
-	# all pk inside data
-	allPk = [data['images'][i]['pk'] for i in range(len(data['images']))]
+	# all pk inside datas
+	allPk = []
+	for data in dataList:
+		for img in data['images']:
+			allPk.append(img['pk'])
 
 	i = 0
 	while i < len(pkList):
@@ -670,7 +673,7 @@ def makeZine(jsonPathList, collaborators, pkAIList):
 	addFonts(pdf)
 
 	# add results
-	addResults(pdf, data, pkAIList)
+	addResults(pdf, dataList, pkAIList)
 	print('## results are ready!')
 
 	# add collaborators
