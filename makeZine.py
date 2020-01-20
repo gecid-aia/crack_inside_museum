@@ -440,7 +440,7 @@ def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
 	confidenceList = [int(item['Confidence']) for item in labelsDictList]
 	pdf.set_text_color(120)
 	pdf.set_font('NeutralStd', '', size = 9)
-	pdf.text(xShift + 4, yShift + 13, txt = 'labels:')
+	pdf.text(xShift + 5, yShift + 12.8, txt = 'labels:')
 	xSpacing = 40
 	i, numPrintedLabels, numOnColumn, maxLabels, skipStart = 0, 0, 7, 21, 2
 	while i < len(labelsList) and numPrintedLabels < maxLabels:
@@ -449,9 +449,9 @@ def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
 			numPrintedLabels += 1
 			continue
 		if len(label) <= 18:
-			addConfidenceBox(pdf, xShift + 7 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 9 + numPrintedLabels%numOnColumn * 4.5, confidence)
+			addConfidenceBox(pdf, xShift + 8 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 9 + numPrintedLabels%numOnColumn * 4.5, confidence)
 			pdf.set_font('NeutralStd', '', size = 8)
-			pdf.text(xShift + 12 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
+			pdf.text(xShift + 13 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
 			numPrintedLabels += 1
 		i += 1
 
