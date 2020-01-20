@@ -124,6 +124,11 @@ def getGuessName(jsonImg):
 
 def getMicrosoftAzureAdult(jsonImg):
 	return jsonImg['microsoftazure']['main']['adult']
+def getMicrosoftAzureCategories(jsonImg):
+	#return a list of dictionaries with category names and percentage
+	#dict['name']
+	#dict['score']
+	return jsonImg['microsoftazure']['main']['categories']
 
 # Densecap
 
@@ -285,12 +290,11 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 	pdf.text(xShift + 2, yShift + 5, txt = 'Microsoft Azure')
 	
 	#moderation
-	pdf.set_font('NeutralStd', '', size = 8)
 	pdf.set_text_color(120)
 	distanceY = 13
 	distanceX = 2
 
-	displaceX = 33
+	displaceX = 75
 	displaceY = 4
 	adult = getMicrosoftAzureAdult(jsonImg)
 	racyScore = int(adult['racyScore']*100)
@@ -298,15 +302,34 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 	adultScore = int(adult['adultScore']*100)
 	isAdult = str(adult['isAdultContent'])
 
-	pdf.text(xShift+displaceX, yShift+displaceY - 0.4, txt = 'Is Adult Content?')
-	pdf.text(xShift+displaceX, yShift+displaceY - 0.4 + 5, txt = 'Is Racy Content?')
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.text(xShift+displaceX, yShift+displaceY - 0.4, txt = 'is adult content?')
+	pdf.text(xShift+displaceX, yShift+displaceY - 0.4 + 5, txt = 'is racy content?')
 	pdf.set_text_color(0) #text color
+	pdf.set_font('NeutralStd', '', size = 8)
 	pdf.text(xShift+displaceX + 45, yShift+displaceY - 0.4, txt = 'adult')
 	pdf.text(xShift+displaceX + 45, yShift+displaceY - 0.6 + 5, txt = 'racy')
-	pdf.text(xShift+displaceX + 26, yShift+displaceY - 0.4, txt = isAdult)
-	pdf.text(xShift+displaceX + 26, yShift+displaceY - 0.4 + 5, txt = isRacy)
+	pdf.text(xShift+displaceX + 27.5, yShift+displaceY - 0.4, txt = isAdult)
+	pdf.text(xShift+displaceX + 27.5, yShift+displaceY - 0.4 + 5, txt = isRacy)
 	addConfidenceBox(pdf, xShift + displaceX + 40, yShift + displaceY-0.4, adultScore, color='green')
 	addConfidenceBox(pdf, xShift + displaceX + 40, yShift + displaceY+4.6, racyScore, color='green')
+	
+	#Categories
+	cat = getMicrosoftAzureCategories(jsonImg)
+	displaceX = 6
+	displaceY = 3.5
+	pdf.set_text_color(120)
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.text(xShift+displaceX + 26, yShift+displaceY, txt = "categorie:")
+	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', '', size = 8)
+	imax = 0
+	for i in range(len(cat)):
+		if cat[i]['score'] > imax:
+			imax = i
+	pdf.text(xShift+displaceX + 29, yShift+displaceY+3, txt = cat[i]['name'])
+	
+
 	
 
 def addClarifAI(pdf, jsonImg, xShift, yShift, second):
