@@ -596,11 +596,11 @@ def addFonts(pdf):
 	pdf.add_font('NeutralStd', 'I', 'src/fonts/NeutralStd-RegularItalic.ttf', uni = True)
 
 
-def addResults(pdf, dataList, pkAIList):
+def addResults(pdf, dataList, idGaleryAIList):
 
-	pkList, AIList = [], []
+	idGaleryList, AIList = [], []
 	for result in pkAIList:
-		pkList.append(result[0])
+		idGaleryList.append(result[0])
 		AIList.append(result[1])
 
 	## results
@@ -610,6 +610,10 @@ def addResults(pdf, dataList, pkAIList):
 	for data in dataList:
 		for img in data['images']:
 			allPk.append(img['pk'])
+
+	pkList = []
+	for idGaleryTuple in idGaleryList:
+		pkList.append(DICT??[idGaleryTuple])
 
 	i = 0
 	while i < len(pkList):
@@ -722,6 +726,7 @@ def getPkAIList(path):
 		temp = [item.strip() for item in temp]
 		while len(temp) == 4:
 			aux = [int(value) for value in temp[0:2]]
+			aux[1] += 1
 			pkAIList.append([aux, temp[2:]])
 			
 			temp = file.readline().split(',')
