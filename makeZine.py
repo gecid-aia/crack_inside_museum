@@ -5,6 +5,7 @@ from urllib.request import urlopen
 from fpdf import FPDF
 from PIL import Image
 from PyPDF2 import PdfFileMerger
+from PyPDF2 import PdfFileReader
 
 ## Image processing
 
@@ -422,7 +423,7 @@ def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
 		i += 1
 
 
-def addAiResults(pdf, jsonImg, kind = 'G', xShift = 10, yShift = 113, second = False):
+def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = False):
 
 	heigth, width = 40, 128.5
 	if second:
@@ -501,7 +502,7 @@ def addCollaborators(pdf, collaborators):
 	# collaborators title
 	pdf.ln(10)
 	title1 = 'COLLABORATORS'
-	pdf.set_font('NeutralStd', 'B', size = 25)
+	pdf.set_font('NeutralStd', 'B', size = 23)
 	pdf.cell(0, 20, txt=title1, ln=1, align="C")
 
 	pdf.set_font('NeutralStd', '', size = 10)
@@ -516,8 +517,6 @@ def addCollaborators(pdf, collaborators):
 			pdf.cell(0, 3, txt='   '+collaborator, ln=1, align="L")
 		else:
 			pdf.cell(0, 3, txt=collaborator+'   ', ln=1, align="R")
-
-
 
 def makeZine(jsonPath, collaborators, pkAIList):
 
@@ -548,8 +547,15 @@ def makeZine(jsonPath, collaborators, pkAIList):
 	# add cover page
 	zine = PdfFileMerger()
 	zine.merge(0, 'src/pdfPages/capa.pdf')
-	zine.merge(1, 'src/pdfPages/partialZine.pdf')
-	zine.merge(100, 'src/pdfPages/contracapa.pdf')
+	zine.merge(1, 'src/pdfPages/blankPage.pdf')
+	zine.merge(2, 'src/pdfPages/apresentacao.pdf')
+	zine.merge(3, 'src/pdfPages/blankPage.pdf')
+	zine.merge(4, 'src/pdfPages/partialZine.pdf')
+	partialZine = PdfFileReader('src/pdfPages/partialZine.pdf')
+	numPages = partialZine.getNumPages()
+	if numPages%2 != 0:
+		zine.merge(100, 'src/pdfPages/blankPage.pdf')
+	zine.merge(200, 'src/pdfPages/contracapa.pdf')
 	zine.write('zine.pdf')
 	print('## zine is ready!')
 
