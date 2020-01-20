@@ -260,7 +260,7 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 	pdf.image('src/images/pdfImages/visuallySimilar.png', xShift - 4.5, yShift + 29, w = 3.5)
 	
 	for i in range(len(urls)):
-		maxSize = 37.8
+		maxSize = 38
 		pdf.rect(xShift-0.1, yShift + i*45 - 0.1, maxSize + 0.2, maxSize + 0.2, style = 'DF')
 
 		imSize = Image.open(path + str(pk) + '_' + str(i+1) + '.jpg').size
