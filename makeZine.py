@@ -267,7 +267,7 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 		# horizontal image
 		if imSize[0] > imSize[1]:
 			imSize = scaleToDefaultWidth(imSize, maxSize)
-			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift, y = i*45 + yShift + (maxSize - imSize[1])/2, w = maxSize)
+			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift, y = i*45 + yShift + (maxSize - imSize[1])/2, w = maxSize-0.1)
 		
 		# vertical image
 		else:
