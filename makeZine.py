@@ -131,7 +131,7 @@ def getDensecapImage(jsonImg):
 
 # Amazon Rekognition
 
-def getAmazonLabels(jsonImg):
+def getAmazonLabelAnnotations(jsonImg):
 
 	# returns a list of dictionaries with name and confidence for each label classified by the Amazon Rekog
 	return jsonImg['amazonRekog']['labels']['Labels']
@@ -349,10 +349,43 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(120)
 	pdf.text(xShift + 5, yShift + 38.5, txt = 'text:')
 	pdf.set_text_color(0)
-	print(getGoogleTextAnnotation(jsonImg).lower())
-	pdf.text(xShift + 14, yShift + 38.5, txt = getGoogleTextAnnotation(jsonImg).lower())
+	text = getGoogleTextAnnotation(jsonImg).lower()
+	maxTextLen = 70
+	if len(text) > maxTextLen:
+		text = text[:maxTextLen] + '...'
+	pdf.text(xShift + 14, yShift + 38.5, txt = text)
 
-def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = False):
+def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
+	
+	pdf.set_text_color(24, 188, 156)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.set_fill_color(240)
+	pdf.rect(xShift, yShift, 39, 8, 'DF')
+	pdf.text(xShift + 2, yShift + 5, txt = 'Amazon Rekognition')
+
+	labelsDictList = getAmazonLabelAnnotations(jsonImg)
+
+	labelsList = [item['Name'] for item in labelsDictList]
+	confidenceList = [int(item['Confidence']) for item in labelsDictList]
+	pdf.set_text_color(120)
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.text(xShift + 4, yShift + 13, txt = 'labels:')
+	xSpacing = 40
+	i, numPrintedLabels, numOnColumn, maxLabels, skipStart = 0, 0, 7, 21, 2
+	while i < len(labelsList) and numPrintedLabels < maxLabels:
+		label, confidence = labelsList[i], confidenceList[i]
+		if skipStart > numPrintedLabels:
+			numPrintedLabels += 1
+			continue
+		if len(label) <= 18:
+			addConfidenceBox(pdf, xShift + 7 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 9 + numPrintedLabels%numOnColumn * 4.5, confidence)
+			pdf.set_font('NeutralStd', '', size = 8)
+			pdf.text(xShift + 12 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
+			numPrintedLabels += 1
+		i += 1
+
+
+def addAiResults(pdf, jsonImg, kind = 'G', xShift = 10, yShift = 113, second = False):
 
 	heigth, width = 40, 128.5
 	if second:
@@ -366,6 +399,7 @@ def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = F
 	
 	# Amazon Rekognition
 	if kind == 'A':
+		addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second)
 		pass
 
 	# IBM Watson
@@ -478,7 +512,7 @@ def makeZine(jsonPath, collaborators, pkAIList):
 	zine = PdfFileMerger()
 	zine.merge(0, 'src/pdfPages/capa.pdf')
 	zine.merge(1, 'src/pdfPages/partialZine.pdf')
-	zine.merge(2, 'src/pdfPages/contracapa.pdf')
+	zine.merge(100, 'src/pdfPages/contracapa.pdf')
 	zine.write('zine.pdf')
 	print('## zine is ready!')
 
