@@ -654,12 +654,14 @@ def addCollaborators(pdf, collaborators):
 		else:
 			pdf.cell(0, 3, txt=collaborator+'   ', ln=1, align="R")
 
-def makeZine(jsonPath, collaborators, pkAIList):
+def makeZine(jsonPathList, collaborators, pkAIList):
 
-	# read json file
-	with open(jsonPath) as jsonFile:
-		data = json.load(jsonFile)
-	print('## json is ready!')
+	# read jsons files
+	dataList = []
+	for jsonPath in jsonPathList:
+		with open(jsonPath) as jsonFile:
+			dataList.append(json.load(jsonFile))
+	print('## jsons are ready!')
 
 	# initialize pdf
 	pdf = FPDF(orientation='P', unit='mm', format='A5')
