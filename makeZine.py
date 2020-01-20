@@ -610,26 +610,33 @@ def addResults(pdf, dataList, idGaleryAIList):
 	for data in dataList:
 		for img in data['images']:
 			allPk.append(img['pk'])
+	print(allPk)
 
-	pkList = []
+	pkList, galeryIndexList = [], []
 	for idGaleryTuple in idGaleryList:
-		pkList.append(DICT??[idGaleryTuple])
+		print(idGaleryTuple)
+		pkList.append(PKDICT[idGaleryTuple])
+		for index, data in enumerate(dataList):
+			if data['id']-1 == idGaleryTuple[1]:
+				galeryIndexList.append(index)
 
 	i = 0
 	while i < len(pkList):
 		pdf.add_page()
 		pk = pkList[i]
+		galeryIndex = galeryIndexList[i]
 		AI = AIList[i]
 
 		# check if pk is in list
 		try:
-			index = allPk.index(pk)
+			temp = allPk.index(pk)
 		except:
 			print('Erro:', pk, 'not in data!')
 			i += 1
 			continue
 
-		jsonImg = data['images'][index]
+		index = idGaleryList[i][0]-1
+		jsonImg = dataList[galeryIndex]['images'][index]
 
 		addImage(pdf, jsonImg, pk)
 		addName(pdf, jsonImg, number = i+1)
@@ -726,8 +733,8 @@ def getPkAIList(path):
 		temp = [item.strip() for item in temp]
 		while len(temp) == 4:
 			aux = [int(value) for value in temp[0:2]]
-			aux[1] += 1
-			pkAIList.append([aux, temp[2:]])
+			#aux[1] += 1
+			pkAIList.append([tuple(aux), temp[2:]])
 			
 			temp = file.readline().split(',')
 			temp = [item.strip() for item in temp]
@@ -737,6 +744,7 @@ def getPkAIList(path):
 
 if __name__ == '__main__':
 	
+	'''
 	f = open ('src/jsonFiles/42.json','r')
 	f41 = json.load(f)
 	f.close()
@@ -755,32 +763,45 @@ if __name__ == '__main__':
 	g = 41
 	n = 1
 	for image in f41['images']:
-		d[(g, n)] = image['pk']
+		d[(n, g)] = image['pk']
 		n += 1
 	g = 42
 	n = 1
 	for image in f42['images']:
-		d[(g, n)] = image['pk']
+		d[(n, g)] = image['pk']
 		n += 1
 	g = 43
 	n = 1
 	for image in f43['images']:
-		d[(g, n)] = image['pk']
+		d[(n, g)] = image['pk']
 		n += 1
 	g = 44
 	n = 1
 	for image in f44['images']:
-		d[(g, n)] = image['pk']
+		d[(n, g)] = image['pk']
 		n += 1
 		
 	print (d)
-
+	'''
 
 	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
 	if jsonPaths == '0':
 		jsonPathList = ['src/jsonFiles/pinacoteca.json']
 	else:
 		jsonPathList = ['src/jsonFiles/' + path.strip() for path in jsonPaths.split(',')]
+
+	dataList = []
+	for jsonPath in jsonPathList:
+		with open(jsonPath) as jsonFile:
+			dataList.append(json.load(jsonFile))
+	global PKDICT
+	PKDICT = {}
+	for data in dataList:
+		id = data['id']-1
+		for i, img in enumerate(data['images']):
+			pk = img['pk']
+			PKDICT[(i+1, id)] = pk
+	print(PKDICT)
 
 	collaboratorsPath = 'collaborators.txt'
 	collaborators = getCollaborators(collaboratorsPath)
