@@ -610,11 +610,9 @@ def addResults(pdf, dataList, idGaleryAIList):
 	for data in dataList:
 		for img in data['images']:
 			allPk.append(img['pk'])
-	print(allPk)
 
 	pkList, galeryIndexList = [], []
 	for idGaleryTuple in idGaleryList:
-		print(idGaleryTuple)
 		pkList.append(PKDICT[idGaleryTuple])
 		for index, data in enumerate(dataList):
 			if data['id']-1 == idGaleryTuple[1]:
@@ -786,7 +784,7 @@ if __name__ == '__main__':
 
 	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
 	if jsonPaths == '0':
-		jsonPathList = ['src/jsonFiles/pinacoteca.json']
+		jsonPathList = ['src/jsonFiles/42.json', 'src/jsonFiles/43.json', 'src/jsonFiles/44.json', 'src/jsonFiles/45.json']
 	else:
 		jsonPathList = ['src/jsonFiles/' + path.strip() for path in jsonPaths.split(',')]
 
@@ -801,14 +799,12 @@ if __name__ == '__main__':
 		for i, img in enumerate(data['images']):
 			pk = img['pk']
 			PKDICT[(i+1, id)] = pk
-	print(PKDICT)
 
 	collaboratorsPath = 'collaborators.txt'
 	collaborators = getCollaborators(collaboratorsPath)
 
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
-	print(jsonPathList)
 
 	print('Zine its being made, migth take some minutes...')
 	makeZine(jsonPathList, collaborators, pkAIList)
