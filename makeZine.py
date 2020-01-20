@@ -736,6 +736,45 @@ def getPkAIList(path):
 	return pkAIList
 
 if __name__ == '__main__':
+	
+	f = open ('src/jsonFiles/42.json','r')
+	f41 = json.load(f)
+	f.close()
+	f = open ('src/jsonFiles/43.json','r')
+	f42 = json.load(f)
+	f.close()
+	f = open ('src/jsonFiles/44.json','r')
+	f43 = json.load(f)
+	f.close()
+	f = open ('src/jsonFiles/45.json','r')
+	f44 = json.load(f)
+	f.close()
+
+	global d
+	d = {}
+	g = 41
+	n = 1
+	for image in f41['images']:
+		d[(g, n)] = image['pk']
+		n += 1
+	g = 42
+	n = 1
+	for image in f42['images']:
+		d[(g, n)] = image['pk']
+		n += 1
+	g = 43
+	n = 1
+	for image in f43['images']:
+		d[(g, n)] = image['pk']
+		n += 1
+	g = 44
+	n = 1
+	for image in f44['images']:
+		d[(g, n)] = image['pk']
+		n += 1
+		
+	print (d)
+
 
 	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
 	if jsonPaths == '0':
