@@ -715,28 +715,30 @@ def getPkAIList(path):
 	with open(path, 'r') as file:
 		temp = file.readline().split(',')
 		temp = [item.strip() for item in temp]
-		while len(temp) == 3:
-			pkAIList.append([int(temp[0]), temp[1:]])
+		while len(temp) == 4:
+			aux = [int(value) for value in temp[0:2]]
+			pkAIList.append([aux, temp[2:]])
 			
 			temp = file.readline().split(',')
 			temp = [item.strip() for item in temp]
 
-	# return a list of [[pk, [AI1, AI2]], ...]
+	# return a list of [[[#, galeria], [AI1, AI2]], ...]
 	return pkAIList
 
 if __name__ == '__main__':
 
-	jsonPath = input('Enter json file name, or \'0\' for defaut: ')
-	if jsonPath == '0':
-		jsonPath = 'src/jsonFiles/pinacoteca.json'
+	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
+	if jsonPaths == '0':
+		jsonPathList = ['src/jsonFiles/pinacoteca.json']
 	else:
-		jsonPath = 'src/jsonFiles/' + jsonPath
+		jsonPathList = ['src/jsonFiles/' + path.strip() for path in jsonPaths.split(',')]
 
 	collaboratorsPath = 'collaborators.txt'
 	collaborators = getCollaborators(collaboratorsPath)
 
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
+	print(jsonPathList)
 
 	print('Zine its being made, migth take some minutes...')
-	makeZine(jsonPath, collaborators, pkAIList)
+	makeZine(jsonPathList, collaborators, pkAIList)
