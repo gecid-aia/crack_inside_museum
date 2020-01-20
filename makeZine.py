@@ -338,7 +338,7 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 	for i in range(len(cat)):
 		if cat[i]['score'] > imax:
 			imax = i
-	pdf.text(xShift+displaceX + 29, yShift+displaceY+3.5, txt = cat[i]['name'])
+	pdf.text(xShift+displaceX + 29, yShift+displaceY+3.5, txt = removeUnderline(cat[i]['name'].lower()))
 	
 	confidenceLabelsDictList = getMicossoftAzureConfidenceTags(jsonImg)
 	descriptionLabels = getMicossoftAzureDescriptionTags(jsonImg)
@@ -374,6 +374,10 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 			pdf.text(xShift + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + 4.5 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
 			numPrintedLabels += 1
 		i += 1
+
+def removeUnderline(word):
+
+	return ' '.join(word.strip('_').split('_'))
 
 
 def addClarifAI(pdf, jsonImg, xShift, yShift, second):
