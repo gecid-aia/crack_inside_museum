@@ -130,7 +130,7 @@ def getMicrosoftAzureAdult(jsonImg):
 def getDensecapImage(jsonImg):
 
 	# returns a url of densecap full analysed image
-	return jsonImg['dense_cap_full_image']
+	return jsonImg['dense_cap_image']
 
 
 # Amazon Rekognition
@@ -203,8 +203,8 @@ def addName(pdf, jsonImg, number):
 
 	pdf.set_fill_color(240)
 	pdf.set_text_color(0)
-	pdf.set_font('NeutralStd', 'B', size = 10)
-	pdf.cell(0, 8, txt='			  '+name, ln=1, align='L', border = 1, fill = True)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.cell(0, 8, txt='                 '+name, ln=1, align='L', border = 1, fill = True)
 	
 	pdf.set_fill_color(52, 152, 219)
 	pdf.set_font('NeutralStd', '', size = 10)
@@ -263,14 +263,14 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 	pdf.image('src/images/pdfImages/visuallySimilar.png', xShift - 4.5, yShift + 29, w = 3.5)
 	
 	for i in range(len(urls)):
-		maxSize = 37.8
+		maxSize = 38
 		pdf.rect(xShift-0.1, yShift + i*45 - 0.1, maxSize + 0.2, maxSize + 0.2, style = 'DF')
 
 		imSize = Image.open(path + str(pk) + '_' + str(i+1) + '.jpg').size
 		# horizontal image
 		if imSize[0] > imSize[1]:
 			imSize = scaleToDefaultWidth(imSize, maxSize)
-			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift, y = i*45 + yShift + (maxSize - imSize[1])/2, w = maxSize)
+			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift, y = i*45 + yShift + (maxSize - imSize[1])/2, w = maxSize-0.1)
 		
 		# vertical image
 		else:
@@ -319,19 +319,20 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	#General Results
 	pdf.set_font('NeutralStd', '', size = 9)
 	pdf.set_text_color(120)
+	pdf.text(xShift + 5, yShift + 12.5, txt = 'labels:')
 	distanceY = 13
 	distanceX = 2
-	#pdf.text(xShift + distanceX, yShift + distanceY, txt = 'General')
-	#pdf.text(xShift + distanceX, yShift + distanceY+3, txt = 'Results')
-	#pdf.text(xShift + distanceX + 12.5, yShift + distanceY + 1, txt = ':')
 	
 	#Labels
 	xSpacing = 31.75
-	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 5, 20
+	i, numPrintedLabels, numOnColumn, maxLabels, skipStart = 0, 0, 5, 20, 1
 	labelsList = getClarifAIGeneralResults(jsonImg)
-	displaceY = 12.5
-	displaceX = 4
+	displaceY = 13
+	displaceX = 8
 	while i < len (labelsList) and numPrintedLabels < maxLabels:
+		if skipStart > numPrintedLabels:
+			numPrintedLabels += 1
+			continue
 		if len(labelsList[i][0]) <= 15:
 			addConfidenceBox(pdf, xShift + displaceX + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY + numPrintedLabels%numOnColumn*4.5, int((labelsList[i][1]*100)//1))
 			pdf.set_font('NeutralStd', '', size=8)
@@ -340,14 +341,27 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 		i += 1
 
 	#nsfw
-	displaceX = 22
-	displaceY = 5
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_text_color(120)
+	pdf.text(xShift + 21, yShift + 5.5, txt = 'safe for work?')
+
+
+	displaceX = 49
+	displaceY = 5.7
+	pdf.set_font('NeutralStd', '', size = 8)
 	value = getClarifAINsfw(jsonImg)
+	pdf.set_text_color(0)
 	pdf.text(xShift+displaceX + 5, yShift+displaceY - 0.4, txt = 'nsfw')
 	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, int(value), color='green')
 
 	#moderation
-	displaceX = 4
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_text_color(120)
+	pdf.text(xShift + 5, yShift + 37, 'moderation:')
+
+	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', '', size = 8)
+	displaceX = 30
 	displaceY = 37
 	value = getClarifAIModeration(jsonImg)
 	sp = ' '*15
@@ -372,13 +386,14 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(24, 188, 156)
 	pdf.set_font('NeutralStd', 'B', size = 9)
 	pdf.set_fill_color(240)
-	pdf.rect(xShift, yShift, 38, 8, 'DF')
+	pdf.rect(xShift, yShift, 37, 8, 'DF')
 	pdf.text(xShift + 2, yShift + 5, txt = 'Google Cloud Vision')
 	
 	# best guess
 	pdf.set_font('NeutralStd', '', size = 9)
 	pdf.set_text_color(120)
 	pdf.text(xShift + 42, yShift + 5.5, txt = 'best guess:')
+	pdf.set_font('NeutralStd', '', size = 8)
 	pdf.set_text_color(0)
 	pdf.text(xShift + 61, yShift + 5.5, txt = getGoogleBestGuessLabel(jsonImg))
 
@@ -391,6 +406,7 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	safeAnnotationsDict = getGoogleSafeSearchAnnotations(jsonImg)
 	pdf.set_text_color(120)
 	yAdjust = 12.5
+	pdf.set_font('NeutralStd', '', size = 9)
 	pdf.text(xShift + 5, yShift + yAdjust, 'violence:')
 	pdf.text(xShift + 30, yShift + yAdjust, 'medical:')
 	pdf.text(xShift + 55, yShift + yAdjust, 'adult:')
@@ -398,6 +414,7 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	pdf.text(xShift + 105, yShift + yAdjust, 'racy:')
 
 	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', '', size = 8)
 	pdf.text(xShift + 5, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['violence'].lower().split('_')))
 	pdf.text(xShift + 30, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['medical'].lower().split('_')))
 	pdf.text(xShift + 55, yShift + yAdjust + 4, ' '.join(safeAnnotationsDict['adult'].lower().split('_')))
@@ -411,27 +428,30 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	labelsList = [item['description'] for item in labelsDictList]
 	confidenceList = [int(item['score']*100) for item in labelsDictList]
 	pdf.set_text_color(120)
+	pdf.set_font('NeutralStd', '', size = 9)
 	pdf.text(xShift + 5, yShift + 27, txt = 'labels:')
 	xSpacing = 36
 	i, numPrintedLabels, numOnColumn, maxLabels = 0, 0, 3, 9
 	while i < len(labelsList) and numPrintedLabels < maxLabels:
 		label, confidence = labelsList[i], confidenceList[i]
-		if len(label) <= 15:
+		if len(label) <= 18:
 			addConfidenceBox(pdf, xShift + 20 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 23 + numPrintedLabels%numOnColumn * 4.5, confidence)
-			pdf.set_font('NeutralStd', '', size = 9)
+			pdf.set_font('NeutralStd', '', size = 8)
 			pdf.text(xShift + 25 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 22.6 + numPrintedLabels%numOnColumn * 4.5, txt = label)
 			numPrintedLabels += 1
 		i += 1
 
 	# text
+	pdf.set_font('NeutralStd', '', size = 9)
 	pdf.set_text_color(120)
 	pdf.text(xShift + 5, yShift + 38.5, txt = 'text:')
 	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', '', size = 8)
 	text = getGoogleTextAnnotation(jsonImg).lower()
 	maxTextLen = 70
 	if len(text) > maxTextLen:
 		text = text[:maxTextLen] + '...'
-	pdf.text(xShift + 14, yShift + 38.5, txt = text)
+	pdf.text(xShift + 14, yShift + 38.4, txt = text)
 
 def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
 	
@@ -447,7 +467,7 @@ def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
 	confidenceList = [int(item['Confidence']) for item in labelsDictList]
 	pdf.set_text_color(120)
 	pdf.set_font('NeutralStd', '', size = 9)
-	pdf.text(xShift + 4, yShift + 13, txt = 'labels:')
+	pdf.text(xShift + 5, yShift + 12.8, txt = 'labels:')
 	xSpacing = 40
 	i, numPrintedLabels, numOnColumn, maxLabels, skipStart = 0, 0, 7, 21, 2
 	while i < len(labelsList) and numPrintedLabels < maxLabels:
@@ -456,9 +476,9 @@ def addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second):
 			numPrintedLabels += 1
 			continue
 		if len(label) <= 18:
-			addConfidenceBox(pdf, xShift + 7 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 9 + numPrintedLabels%numOnColumn * 4.5, confidence)
+			addConfidenceBox(pdf, xShift + 8 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 9 + numPrintedLabels%numOnColumn * 4.5, confidence)
 			pdf.set_font('NeutralStd', '', size = 8)
-			pdf.text(xShift + 12 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
+			pdf.text(xShift + 13 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
 			numPrintedLabels += 1
 		i += 1
 
