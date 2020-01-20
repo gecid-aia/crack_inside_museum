@@ -327,18 +327,18 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 	
 	#Categories
 	cat = getMicrosoftAzureCategories(jsonImg)
-	displaceX = 6
+	displaceX = 10
 	displaceY = 3.5
 	pdf.set_text_color(120)
 	pdf.set_font('NeutralStd', '', size = 9)
-	pdf.text(xShift+displaceX + 26, yShift+displaceY, txt = "categorie:")
+	pdf.text(xShift+displaceX + 26, yShift+displaceY, txt = "category:")
 	pdf.set_text_color(0)
 	pdf.set_font('NeutralStd', '', size = 8)
 	imax = 0
 	for i in range(len(cat)):
 		if cat[i]['score'] > imax:
 			imax = i
-	pdf.text(xShift+displaceX + 29, yShift+displaceY+3, txt = cat[i]['name'])
+	pdf.text(xShift+displaceX + 29, yShift+displaceY+3.5, txt = cat[i]['name'])
 	
 	confidenceLabelsDictList = getMicossoftAzureConfidenceTags(jsonImg)
 	descriptionLabels = getMicossoftAzureDescriptionTags(jsonImg)
