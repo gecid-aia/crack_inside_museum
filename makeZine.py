@@ -359,7 +359,7 @@ def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(24, 188, 156)
 	pdf.set_font('NeutralStd', 'B', size = 9)
 	pdf.set_fill_color(240)
-	pdf.rect(xShift, yShift, 38, 8, 'DF')
+	pdf.rect(xShift, yShift, 37, 8, 'DF')
 	pdf.text(xShift + 2, yShift + 5, txt = 'Google Cloud Vision')
 	
 	# best guess
