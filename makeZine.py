@@ -216,7 +216,7 @@ def addName(pdf, jsonImg, number):
 	else:
 		addConfidenceBox(pdf, x, y, confidence, head = True)
 
-def addConfidenceBox(pdf, x, y, confidence, printSlash = False, head = False):
+def addConfidenceBox(pdf, x, y, confidence, printSlash = False, head = False, color='blue'):
 	
 	if head:
 		width = 8
@@ -231,7 +231,10 @@ def addConfidenceBox(pdf, x, y, confidence, printSlash = False, head = False):
 
 	pdf.set_font('NeutralStd', 'B', size = textSize)
 	pdf.set_text_color(255)
-	pdf.image('src/images/pdfImages/confidenceBox.png', x - 2.8, y - 3, w = width)
+	if color == 'blue':
+		pdf.image('src/images/pdfImages/confidenceBox.png', x - 2.8, y - 3, w = width)
+	else:
+		pdf.image('src/images/pdfImages/confidenceBoxSfw.png', x - 2.8, y - 3, w = width)
 	if printSlash:
 		pdf.text(x + xAdjust, y + yAdjust, txt='—')
 	elif confidence < 10:
@@ -269,6 +272,15 @@ def addVisualSimilarImages(pdf, jsonImg, pk, xShift = 100.5, yShift = 24, path =
 		else:
 			imSize = scaleToDefaultHeight(imSize, maxSize)
 			pdf.image(path + str(pk) + '_' + str(i+1) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y =  i*45 + yShift, h = maxSize)
+
+def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
+	pdf.set_text_color(24, 188, 156)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.set_fill_color(240)
+	pdf.rect(xShift, yShift, 17, 8, 'DF')
+	pdf.text(xShift + 2, yShift + 5, txt = 'ClarifAI')
+	
+
 def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(24, 188, 156)
 	pdf.set_font('NeutralStd', 'B', size = 9)
@@ -304,7 +316,7 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	displaceY = 5
 	value = getClarifAINsfw(jsonImg)
 	pdf.text(xShift+displaceX + 5, yShift+displaceY - 0.4, txt = 'nsfw')
-	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, int(value))
+	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, int(value), color='green')
 
 	#moderation
 	displaceX = 4
@@ -319,11 +331,12 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	pdf.text(xShift+displaceX+66, yShift+displaceY, txt = 'gore')
 	pdf.text(xShift+displaceX+83, yShift+displaceY, txt = 'drug')
 	displaceY += 0.2
-	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, value['safe'])
-	addConfidenceBox(pdf, xShift + displaceX + 16, yShift + displaceY, value['suggestive'])
-	addConfidenceBox(pdf, xShift + displaceX + 41, yShift + displaceY, value['explicit'])
-	addConfidenceBox(pdf, xShift + displaceX + 61, yShift + displaceY, value['gore'])
-	addConfidenceBox(pdf, xShift + displaceX + 78, yShift + displaceY, value['drug'])
+	color = 'green'
+	addConfidenceBox(pdf, xShift + displaceX, yShift + displaceY, value['safe'], color=color)
+	addConfidenceBox(pdf, xShift + displaceX + 16, yShift + displaceY, value['suggestive'], color=color)
+	addConfidenceBox(pdf, xShift + displaceX + 41, yShift + displaceY, value['explicit'], color=color)
+	addConfidenceBox(pdf, xShift + displaceX + 61, yShift + displaceY, value['gore'], color=color)
+	addConfidenceBox(pdf, xShift + displaceX + 78, yShift + displaceY, value['drug'], color=color)
 
 
 def addGoogleCloudVision(pdf, jsonImg, xShift, yShift, second):
@@ -443,6 +456,10 @@ def addAiResults(pdf, jsonImg, kind = 'G', xShift = 10, yShift = 113, second = F
 	if kind == 'I':
 		pass
 
+	#Microsoft Azure
+	if kind == 'M':
+		addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second)
+
 	# ClarifAI
 	if kind == 'C':
 		addClarifAI(pdf, jsonImg, xShift, yShift, second)
@@ -476,6 +493,7 @@ def addResults(pdf, data, pkAIList):
 	while i < len(pkList):
 		pdf.add_page()
 		pk = pkList[i]
+		AI = AIList[i]
 
 		# check if pk is in list
 		try:
@@ -490,8 +508,8 @@ def addResults(pdf, data, pkAIList):
 		addImage(pdf, jsonImg, pk)
 		addName(pdf, jsonImg, number = i+1)
 		addVisualSimilarImages(pdf, jsonImg, pk)
-		addAiResults(pdf, jsonImg)
-		addAiResults(pdf, jsonImg, second = True)
+		addAiResults(pdf, jsonImg, AI[0])
+		addAiResults(pdf, jsonImg, AI[1], second = True)
 		i+=1
 
 def addCollaborators(pdf, collaborators):
