@@ -134,6 +134,7 @@ def getMicossoftAzureDescriptionTags(jsonImg):
 
 def getMicrosoftAzureAdult(jsonImg):
 	return jsonImg['microsoftazure']['main']['adult']
+
 def getMicrosoftAzureCategories(jsonImg):
 	#return a list of dictionaries with category names and percentage
 	#dict['name']
@@ -339,16 +340,6 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 			imax = i
 	pdf.text(xShift+displaceX + 29, yShift+displaceY+3, txt = cat[i]['name'])
 	
-
-	
-
-def addMicrosoftAzure2(pdf, jsonImg, xShift, yShift, second):
-	pdf.set_text_color(24, 188, 156)
-	pdf.set_font('NeutralStd', 'B', size = 9)
-	pdf.set_fill_color(240)
-	pdf.rect(xShift, yShift, 17, 8, 'DF')
-	pdf.text(xShift + 2, yShift + 5, txt = 'ClarifAI')
-
 	confidenceLabelsDictList = getMicossoftAzureConfidenceTags(jsonImg)
 	descriptionLabels = getMicossoftAzureDescriptionTags(jsonImg)
 	labelsList = []
@@ -383,7 +374,6 @@ def addMicrosoftAzure2(pdf, jsonImg, xShift, yShift, second):
 			pdf.text(xShift + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + 4.5 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
 			numPrintedLabels += 1
 		i += 1
-
 
 
 def addClarifAI(pdf, jsonImg, xShift, yShift, second):
@@ -583,7 +573,7 @@ def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = F
 
 	#Microsoft Azure
 	if kind == 'M':
-		addMicrosoftAzure2(pdf, jsonImg, xShift, yShift, second)
+		addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second)
 
 	# ClarifAI
 	if kind == 'C':
