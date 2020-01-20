@@ -122,6 +122,16 @@ def getGuessName(jsonImg):
 	# returns a dictionary of a produced by the AI, if it fails to find, returns {text: 'No title', confidence: 100}
 	return caption
 
+def getMicossoftAzureConfidenceTags(jsonImg):
+
+	# returns a list of dictionaries with name and confidence for each tag
+	return jsonImg['microsoftazure']['main']['tags']
+
+def getMicossoftAzureDescriptionTags(jsonImg):
+
+	# returns a list of tags
+	return jsonImg['microsoftazure']['main']['description']['tags']
+
 def getMicrosoftAzureAdult(jsonImg):
 	return jsonImg['microsoftazure']['main']['adult']
 def getMicrosoftAzureCategories(jsonImg):
@@ -332,6 +342,50 @@ def addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second):
 
 	
 
+def addMicrosoftAzure2(pdf, jsonImg, xShift, yShift, second):
+	pdf.set_text_color(24, 188, 156)
+	pdf.set_font('NeutralStd', 'B', size = 9)
+	pdf.set_fill_color(240)
+	pdf.rect(xShift, yShift, 17, 8, 'DF')
+	pdf.text(xShift + 2, yShift + 5, txt = 'ClarifAI')
+
+	confidenceLabelsDictList = getMicossoftAzureConfidenceTags(jsonImg)
+	descriptionLabels = getMicossoftAzureDescriptionTags(jsonImg)
+	labelsList = []
+	for i in range(max(len(confidenceLabelsDictList), len(descriptionLabels))):
+		try:
+			label1 = confidenceLabelsDictList[i]['name']
+		except:
+			label1 = None
+		try:
+			label2 = descriptionLabels[i]
+		except:
+			label2 = None
+		
+		if label1 is not None and label1 not in labelsList:
+			labelsList.append(label1)
+		if label2 is not None and label2 not in labelsList:
+			labelsList.append(label2)
+
+	pdf.set_text_color(120)
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.text(xShift + 5, yShift + 12.8, txt = 'labels:')
+	xSpacing = 30
+	i, numPrintedLabels, numOnColumn, maxLabels, skipStart = 0, 0, 6, 24, 1
+	while i < len(labelsList) and numPrintedLabels < maxLabels:
+		label = labelsList[i]
+		if skipStart > numPrintedLabels:
+			numPrintedLabels += 1
+			continue
+		if len(label) <= 18:
+			pdf.set_text_color(0)
+			pdf.set_font('NeutralStd', '', size = 8)
+			pdf.text(xShift + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + 8.8 + 4.5 + numPrintedLabels%numOnColumn * 4.5, txt = label.lower())
+			numPrintedLabels += 1
+		i += 1
+
+
+
 def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	pdf.set_text_color(24, 188, 156)
 	pdf.set_font('NeutralStd', 'B', size = 9)
@@ -529,7 +583,7 @@ def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = F
 
 	#Microsoft Azure
 	if kind == 'M':
-		addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second)
+		addMicrosoftAzure2(pdf, jsonImg, xShift, yShift, second)
 
 	# ClarifAI
 	if kind == 'C':
