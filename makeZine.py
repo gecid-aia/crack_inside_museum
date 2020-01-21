@@ -39,7 +39,7 @@ def imageIsDownloaded(pathToFile):
 		return False
 	return True
 
-def downloadImage(url, name, path = 'src/images/collectionImages/', checkIfIsDownloaded = True):
+def downloadImage(url, name, path = 'src/images/collectionImages/', checkIfIsDownloaded = True, maxSize = 300):
 
 	isDownloaded = False
 	if checkIfIsDownloaded and imageIsDownloaded(path + name):
@@ -48,6 +48,13 @@ def downloadImage(url, name, path = 'src/images/collectionImages/', checkIfIsDow
 	# download img from url and save it
 	if not isDownloaded:
 		img = Image.open(urlopen(url))
+		imSize = img.size
+		if maxSize < max(imSize):
+			if imSize[0] > imSize[1]:
+				imSize = scaleToDefaultWidth(imSize, maxSize)
+			else:
+				imSize = scaleToDefaultHeight(imSize, maxSize)
+			img.resize(imSize)
 		img.save(path + name)
 		
 		del img
@@ -184,7 +191,10 @@ def getClarifAIModeration(jsonImg):
 
 def getClarifAIGeneralResults(jsonImg):
 	#return a list of tuples with label and percentage
-	results = [ (jsonImg['clarifai']['general']['concepts'][index]['name'], jsonImg['clarifai']['general']['concepts'][index]['value']) for index in range(len(jsonImg['clarifai']['general']['concepts']))]
+	try:
+		results = [ (jsonImg['clarifai']['general']['concepts'][index]['name'], jsonImg['clarifai']['general']['concepts'][index]['value']) for index in range(len(jsonImg['clarifai']['general']['concepts']))]
+	except:
+		return None
 	return results
 
 
@@ -427,16 +437,17 @@ def addClarifAI(pdf, jsonImg, xShift, yShift, second):
 	labelsList = getClarifAIGeneralResults(jsonImg)
 	displaceY = 13
 	displaceX = 8
-	while i < len (labelsList) and numPrintedLabels < maxLabels:
-		if skipStart > numPrintedLabels:
-			numPrintedLabels += 1
-			continue
-		if len(labelsList[i][0]) <= 15:
-			addConfidenceBox(pdf, xShift + displaceX + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY + numPrintedLabels%numOnColumn*4.5, int((labelsList[i][1]*100)//1))
-			pdf.set_font('NeutralStd', '', size=8)
-			pdf.text(xShift + displaceX + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY - 0.4 + numPrintedLabels%numOnColumn * 4.5, txt = labelsList[i][0])
-			numPrintedLabels += 1
-		i += 1
+	if labelsList is not None:
+		while i < len (labelsList) and numPrintedLabels < maxLabels:
+			if skipStart > numPrintedLabels:
+				numPrintedLabels += 1
+				continue
+			if len(labelsList[i][0]) <= 15:
+				addConfidenceBox(pdf, xShift + displaceX + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY + numPrintedLabels%numOnColumn*4.5, int((labelsList[i][1]*100)//1))
+				pdf.set_font('NeutralStd', '', size=8)
+				pdf.text(xShift + displaceX + 5 + (numPrintedLabels//numOnColumn)*xSpacing, yShift + displaceY - 0.4 + numPrintedLabels%numOnColumn * 4.5, txt = labelsList[i][0])
+				numPrintedLabels += 1
+			i += 1
 
 	#nsfw
 	pdf.set_font('NeutralStd', '', size = 9)
@@ -599,10 +610,6 @@ def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = F
 		addAmazonRekognition(pdf, jsonImg,  xShift, yShift, second)
 		pass
 
-	# IBM Watson
-	if kind == 'I':
-		pass
-
 	#Microsoft Azure
 	if kind == 'M':
 		addMicrosoftAzure(pdf, jsonImg, xShift, yShift, second)
@@ -610,10 +617,6 @@ def addAiResults(pdf, jsonImg, kind = 'C', xShift = 10, yShift = 113, second = F
 	# ClarifAI
 	if kind == 'C':
 		addClarifAI(pdf, jsonImg, xShift, yShift, second)
-
-	# Dark YOLO
-	if kind == 'D':
-		pass
 
 
 def addFonts(pdf):
@@ -650,7 +653,7 @@ def addResults(pdf, dataList, idGaleryAIList):
 	while i < len(pkList):
 		pdf.add_page()
 		pk = pkList[i]
-		print('# pk: {} | result: {} | galery: {}'.format(pk, idGaleryList[i][0], idGaleryList[i][1]))
+		#print('# pk: {} | result: {} | galery: {}'.format(pk, idGaleryList[i][0], idGaleryList[i][1]))
 		galeryIndex = galeryIndexList[i]
 		AI = AIList[i]
 
@@ -711,15 +714,16 @@ def makeZine(jsonPathList, collaborators, pkAIList):
 	addFonts(pdf)
 
 	# add results
+	print('# preparing results...')
 	addResults(pdf, dataList, pkAIList)
 	print('## results are ready!')
 
 	# add collaborators
 	addCollaborators(pdf, collaborators)
-	print('## collaborators is ready!')
 
 	# add glossary page
 
+	print('# preparing zine pdf...')
 	# output partial zine
 	pdf.output("src/pdfPages/partialZine.pdf")
 
@@ -733,8 +737,8 @@ def makeZine(jsonPathList, collaborators, pkAIList):
 	partialZine = PdfFileReader('src/pdfPages/partialZine.pdf')
 	numPages = partialZine.getNumPages()
 	if numPages%2 != 0:
-		zine.merge(100, 'src/pdfPages/blankPage.pdf')
-	zine.merge(200, 'src/pdfPages/contracapa.pdf')
+		zine.merge(500, 'src/pdfPages/blankPage.pdf')
+	zine.merge(501, 'src/pdfPages/contracapa.pdf')
 	zine.write('zine.pdf')
 	print('## zine is ready!')
 
@@ -760,7 +764,6 @@ def getPkAIList(path):
 		temp = [item.strip() for item in temp]
 		while len(temp) == 4:
 			aux = [int(value) for value in temp[0:2]]
-			#aux[1] += 1
 			pkAIList.append([tuple(aux), temp[2:]])
 			
 			temp = file.readline().split(',')
@@ -771,49 +774,10 @@ def getPkAIList(path):
 
 if __name__ == '__main__':
 	
-	'''
-	f = open ('src/jsonFiles/42.json','r')
-	f41 = json.load(f)
-	f.close()
-	f = open ('src/jsonFiles/43.json','r')
-	f42 = json.load(f)
-	f.close()
-	f = open ('src/jsonFiles/44.json','r')
-	f43 = json.load(f)
-	f.close()
-	f = open ('src/jsonFiles/45.json','r')
-	f44 = json.load(f)
-	f.close()
-
-	global d
-	d = {}
-	g = 41
-	n = 1
-	for image in f41['images']:
-		d[(n, g)] = image['pk']
-		n += 1
-	g = 42
-	n = 1
-	for image in f42['images']:
-		d[(n, g)] = image['pk']
-		n += 1
-	g = 43
-	n = 1
-	for image in f43['images']:
-		d[(n, g)] = image['pk']
-		n += 1
-	g = 44
-	n = 1
-	for image in f44['images']:
-		d[(n, g)] = image['pk']
-		n += 1
-		
-	print (d)
-	'''
 
 	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
 	if jsonPaths == '0':
-		jsonPathList = ['src/jsonFiles/42.json', 'src/jsonFiles/43.json', 'src/jsonFiles/44.json', 'src/jsonFiles/45.json']
+		jsonPathList = ['src/jsonFiles/41.json', 'src/jsonFiles/42.json', 'src/jsonFiles/43.json', 'src/jsonFiles/44.json']
 	else:
 		jsonPathList = ['src/jsonFiles/' + path.strip() for path in jsonPaths.split(',')]
 
