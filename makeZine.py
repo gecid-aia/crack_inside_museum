@@ -199,13 +199,15 @@ def getClarifAIGeneralResults(jsonImg):
 
 
 ## Zine processing
-
+def getOriginalImage(jsonImg):
+	return jsonImg['image']
 def addImage(pdf, jsonImg, pk, path = 'src/images/collectionImages/', xShift = 10, yShift = 24):
 
 	url = getDensecapImage(jsonImg)
+	urlBG = getOriginalImage(jsonImg)
 	downloadImage(url, str(pk) + '.jpg', path)
-
-	# getting img size to see if width is bigger then height
+	downloadImage(urlBG, str(pk) + 'BG.jpg', path)
+	# getting img size to see if width is bigger than height
 	imSize = Image.open(path + str(pk) + '.jpg').size
 
 	maxSize = 83
@@ -214,14 +216,22 @@ def addImage(pdf, jsonImg, pk, path = 'src/images/collectionImages/', xShift = 1
 	pdf.rect(xShift-0.1, yShift-0.1, maxSize+0.2, maxSize+0.2, 'DF')
 
 	# horizontal image
+	im = Image.open(path+str(pk) + '.jpg')
+	bg = Image.open(path+str(pk) + 'BG.jpg')
+	im.putalpha(180)
+	bg.paste(im, (0,0), im)
+	bg.save(path+str(pk)+'alpha.jpg', "JPEG")
+
 	if imSize[0] > imSize[1]:
 		imSize = scaleToDefaultWidth(imSize, maxSize)
-		pdf.image(path + str(pk) + '.jpg', x = xShift, y = yShift + (maxSize - imSize[1])/2, w = maxSize)
-	
+		#pdf.image(path + str(pk) + '.jpg', x = xShift, y = yShift + (maxSize - imSize[1])/2, w = maxSize)
+		pdf.image(path + str(pk) + 'alpha.jpg', x = xShift, y = yShift + (maxSize - imSize[1])/2, w = maxSize)
+
 	# vertical image
 	else:
 		imSize = scaleToDefaultHeight(imSize, maxSize)
-		pdf.image(path + str(pk) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y = yShift, h = maxSize)
+		#pdf.image(path + str(pk) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y = yShift, h = maxSize)
+		pdf.image(path + str(pk) + 'alpha.jpg', x = xShift + (maxSize - imSize[0])/2, y = yShift, h = maxSize)
 	
 	del imSize
 
