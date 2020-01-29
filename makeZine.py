@@ -639,12 +639,50 @@ def addFonts(pdf):
 	pdf.add_font('NeutralStd', 'B', 'src/fonts/NeutralStd-Bold.ttf', uni = True)
 	pdf.add_font('NeutralStd', 'I', 'src/fonts/NeutralStd-RegularItalic.ttf', uni = True)
 
-def addPerfilImageDescription(pdf, jsonImg, description, pk, path = 'src/images/collectionImages/'):
+def addPerfilImageDescription(pdf, jsonImg, description, pk, pkAuthorDict, path = 'src/images/collectionImages/'):
 
+	pdf.set_draw_color(255)
+	
+	pdf.set_text_color(70)
+	pdf.set_font('NeutralStd', '', size = 8)
+	pdf.ln(10)
+	author = pkAuthorDict[pk]['author']
+	if author == 'unk':
+		author = 'Anonymous work'
+	pdf.cell(0, 8, txt=author, ln=1, align='C', border = 1, fill = False)
+
+	yShiftFlag = 0
 	pdf.set_text_color(0)
 	pdf.set_font('NeutralStd', '', size = 9)
-	pdf.set_draw_color(255)
-	pdf.ln(138)
+	title = pkAuthorDict[pk]['title']
+	if title == 'unk':
+		title = 'No title'
+	if len(title) < 70:
+		pdf.cell(0, 4, txt=title, ln=1, align='C', border = 1, fill = False)	
+	else:
+		yShiftFlag = 4
+		titleList = title.split(' ')
+		title1 = ''
+		title2 = ''
+		for word in titleList:
+			if len(title1) <= 70:
+				title1 += word + ' '
+			else:
+				title2 += word + ' '
+		title1 = title1.strip()
+		title2 = title2.strip()
+		pdf.cell(0, 4, txt=title1, ln=1, align='C', border = 1, fill = False)	
+		pdf.cell(0, 4, txt=title2, ln=1, align='C', border = 1, fill = False)	
+
+
+	pdf.set_text_color(70)
+	pdf.set_font('NeutralStd', '', size = 8)
+	year = pkAuthorDict[pk]['year']
+	if year == 'unk':
+		year = 'Unknown year'
+	pdf.cell(0, 6, txt=year, ln=1, align='C', border = 1, fill = False)
+
+	pdf.ln(105)
 	pdf.cell(0, 8, txt=description, ln=1, align='C', border = 1, fill = False)
 
 	urlBG = getOriginalImage(jsonImg)
@@ -656,7 +694,8 @@ def addPerfilImageDescription(pdf, jsonImg, description, pk, path = 'src/images/
 
 	pdf.set_fill_color(245)
 	xShift = 24
-	yShift = 40
+	yShift = 40 + yShiftFlag
+
 	pdf.rect(xShift-0.1, yShift-0.1, maxSize+0.2, maxSize+0.2, 'DF')
 
 	# horizontal image
@@ -678,7 +717,7 @@ def addPerfilImageDescription(pdf, jsonImg, description, pk, path = 'src/images/
 	return
 
 
-def addResults(pdf, dataList, idGaleryAIList):
+def addResults(pdf, dataList, idGaleryAIList, pkAuthorDict):
 
 	pdf.add_page()
 
@@ -724,7 +763,7 @@ def addResults(pdf, dataList, idGaleryAIList):
 		jsonImg = dataList[galeryIndex]['images'][index]
 
 		pdf.add_page()
-		addPerfilImageDescription(pdf, jsonImg, description, pk)
+		addPerfilImageDescription(pdf, jsonImg, description, pk, pkAuthorDict)
 
 		pdf.add_page()
 
@@ -758,7 +797,7 @@ def addCollaborators(pdf, collaborators):
 		else:
 			pdf.cell(0, 3, txt=collaborator+'   ', ln=1, align="R")
 
-def makeZine(jsonPathList, collaborators, pkAIList):
+def makeZine(jsonPathList, collaborators, pkAIList, pkAuthorDict):
 
 	# read jsons files
 	dataList = []
@@ -775,7 +814,7 @@ def makeZine(jsonPathList, collaborators, pkAIList):
 
 	# add results
 	print('# preparing results...')
-	addResults(pdf, dataList, pkAIList)
+	addResults(pdf, dataList, pkAIList, pkAuthorDict)
 	print('## results are ready!')
 
 	# add collaborators
@@ -832,6 +871,19 @@ def getPkAIList(path):
 	# return a list of [[[#, galeria], [AI1, AI2], 'string'], ...]
 	return pkAIList
 
+def getPkAuthor(path):
+	pkAuthorDict = {}
+	with open(path, 'r') as file:
+		temp = file.readline().split(';')
+		temp = [item.strip() for item in temp]
+		while len(temp) == 4:
+			pkAuthorDict[int(temp[0])] = {'author': temp[1], 'title': temp[2],'year': temp[3]}
+
+			temp = file.readline().split(';')
+			temp = [item.strip() for item in temp]
+
+	# return a dict of dicts: {pk1: {author, title, year}, ...}
+	return pkAuthorDict
 if __name__ == '__main__':
 	
 
@@ -859,5 +911,9 @@ if __name__ == '__main__':
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
 
+
+	pkAuthorPath = 'authors.txt'
+	pkAuthorDict = getPkAuthor(pkAuthorPath)
+
 	print('Zine its being made, migth take some minutes...')
-	makeZine(jsonPathList, collaborators, pkAIList)
+	makeZine(jsonPathList, collaborators, pkAIList, pkAuthorDict)
