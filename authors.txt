@@ -1,0 +1,127 @@
+1098;Lucio Fontana;Concetto spaziale;1957
+1099;Pablo Palazuelo;La grande étude IV;1957-1958
+1100;Antoni Tápies;Quatre quadrats grisos sobre fons marró;1959
+1101;Antoni Tápies;Pintura ocre;1959
+1102;Josep Maria de Sucre;Rostre expressionista amb grisos;1963
+1103;Josep Maria de Sucre;Rostre;1963
+1095;Anni Albers;Connections;1925-1983
+1104;Jaume Xifra;Pochoir Objets;1966
+1105;Jaume Xifra;Composició;1966
+1106;Zush;Solomo, mesias del siglo XX, ante el deseo de la montaña de madera;1968
+1096;Joaquin Torres-Garcia;Planos de color con dos maderas superpuestas;1928
+1107;Joan Rabascall;Atomic Kiss;1968
+1108;Zush;La confusión del pasado en el Zerebro;1969
+1109;Nancy Spero;Artaud Painting – That thick hemp in the neck of the priest about to be hung;1969
+1110;Nancy Spero;Artaud Painting – From this pain... ;1969
+1111;ASPEN;ASPEN. The Multimedia Magazine in a Box. No. 9. The Psichedelic issue;1971
+1112;Nancy Spero;Codex Artaud V;1971
+1097;Pere Daura;unk;ca. 1929
+1113;Robert Llimós;Espai Ple [ratlles];1971
+1114;Zush;Kaenia II;1972
+1115;Zush;Gorphino;1973
+1116;Ferran Garcia Sevilla;Dieu face à la terre. Sèrie Déus núm. 17;1981
+1117;Ferran Garcia Sevilla;Deu aliorum o god wanted. Sèrie Déus núm. 22 ;1981
+1118;Ferran Garcia Sevilla;Déu amb el cos de metall i molt de braços o God beside a litte fire. Sèrie Déus núm. 24;1981
+1119;Ferran Garcia Sevilla;Der Gott der lichter am himmel o Dio di città. Sèrie Déus núm.34;1981
+1120;Ferran Garcia Sevilla;Déu que fa menjar aire. Sèrie Déus núm. 39;1981
+1121;Ferran Garcia Sevilla;Dio del dolce fare niente. Sèrie Déus núm. 54;1981
+1122;Ferran Garcia Sevilla;Der tote und lebenhige Gott. Dios maníaco. Sèrie Déus núm. 56;1981
+1123;Jean-Michel Basquiat;Sterno;1985
+1124;Jean-Michel Basquiat;King Zulu;1986
+1127;Xavier Basiana, Jaume Orpinell;Catalana de Gas;1997-1998
+1128;Xavier Basiana, Jaume Orpinell;Can Batlló;1997-1998
+1129;Xavier Basiana, Jaume Orpinell;Bayer, SA;1997-1998
+1130;Xavier Basiana, Jaume Orpinell;Myrurgia;1997-1998
+1131;Xavier Basiana, Jaume Orpinell;Editorial Montaner i Simón;1997-1998
+1132;Xavier Basiana, Jaume Orpinell;Ca l'Aranyó;1997-1998
+1133;Xavier Basiana, Jaume Orpinell;Can Felipa - CATEX;1997-1998
+1134;Xavier Basiana, Jaume Orpinell;Palo Alto;1997-1998
+1135;Xavier Basiana, Jaume Orpinell;Can Ricart;1997-1998
+1136;Xavier Basiana, Jaume Orpinell;Fundición Tipográfica Neufville, S.A.;1997-1998
+1137;Xavier Basiana, Jaume Orpinell;Cristalerías Planell;1997-1998
+1138;Xavier Basiana, Jaume Orpinell;Can Batlló - La Bordeta;1997-1998
+1139;David Goldblatt;A logistical warehause in the Zona d'Activitats Logístiques (ZAL). Sèrie: "Connexions globals";2007
+1140;David Goldblatt;Roundabout, Zona Franca, Barcelona. Sèrie: "Connexions globals";2007
+1141;David Goldblatt;Turkish Truck Drivers Share Their Lunch, Zona d'Activitats Logístiques (ZAL). Sèrie: "Connexions globals";2007
+1142;David Goldblatt;Agriculture in the Delta del Llobregat, El Prat del Llobregat. Sèrie: "Connexions globals";2007
+1143;David Goldblatt;The Fish Market 06:30 AM, Mercabarna, Zona Franca, Barcelona. Sèrie: "Connexions globals";2007
+1144;David Goldblatt;On the C-31, Autovia de Castelldefels, Gavà. Sèrie: "Connexions globals";2007
+1145;David Goldblatt;Beginning the Construction of a Bridge for a High-speed Railway linking Barcelona and Madrid. Sèrie: "Connexions globals";2007
+1146;David Goldblatt;Construction of a new metro line, Zona Franca, Barcelona. Sèrie: "Connexions globals";2007
+1147;David Goldblatt;Watching Planes Come in, el Mirador del Prat, El Prat del Llobregat. Sèrie: "Connexions globals";2008
+1148;David Goldblatt;Construction of the New Terminal, Barcelona Airport, El Prat del Llobregat. Sèrie: "Connexions globals";2008
+1149;David Goldblatt;The New Control Tower and Falcons Used for Keeping Her Runways Clear of Birds, Barcelona Airport, El Prat del Llobregat. Sèrie: "Connexions globals";2008
+1150;David Goldblatt;View from the Harbour Master's New Control Tower in the Port of Barcelona. Sèrie: "Connexions globals";2007
+1200;David Goldblatt;The New Control Tower and Its Interior, Barcelona Airport, El Prat del Llobregat. Sèrie: "Connexions globals";2007
+1152;David Goldblatt;Warehouse Interior, Zona d'Activitats Logístiques (ZAL). Sèrie: "Connexions globals";2007
+1153;David Goldblatt;South Breakwater under Construction, Port of Barcelona. Sèrie: "Connexions globals";2007
+1154;David Goldblatt;East breakwater under construction, Port of Barcelona. Sèrie: "Connexions globals";2007
+1155;David Goldblatt;Billboards and Empty Ground next to Ronda de Llevant, El Prat de Llobregat. Sèrie: "Connexions globals";2007
+1156;David Goldblatt;Passengers from a Cruise Liner in the Port of Barcelona, Queue for Taxis to Take Them into the City. Sèrie: "Connexions globals";2007
+1157;David Goldblatt;At the New Mouth of the River Llobregat. Sèrie: "Connexions globals";2007
+1158;Carlos Aires;Mar negro;2013
+1125;Jo Spence;Beyond the Family Album;1978-1979
+1126;Jo Spence, Terry Dennett;Remodelling Photo History;1982
+1088;unk;Pop Quiz;1990
+1089;unk;Republicans Do Believe in a Woman's Right to Control Her Own Body!;1992
+1090;unk;Token Times;1995
+1091;Xavier Basiana, Jaume Orpinell;Editorial Gustavo Gili;1997-1998
+1092;Xavier Basiana, Jaume Orpinell;SEAT;1997-1998
+1093;Xavier Basiana, Jaume Orpinell;Lámparas Z;1997-1998
+1094;Xavier Basiana, Jaume Orpinell;La Pegaso - ENASA;1997-1998
+1073;ASPEN;ASPEN. The Multimedia Magazine in a Box. No 3. The Pop Art issue;1966
+1074;Sture Johannesson;Welcome back! For Ann-Charlotte;1967
+1075;Herminio Molero;Chill Rooms. Sèrie: "Blues";1968
+1076;Herminio Molero;Wild O'clock. Sèrie: "Blues";1968
+1077;Herminio Molero;Another Little Breakfast;1968
+1078;Richard Hamilton;The Beatles;1968
+1079;Sture Johannesson;Revolution Means Revolutionary Consciousness!;1968
+1080;Sture Johannesson;Modellen / The Model: A Model For a Qualitative Society;1968
+1081;Sture Johannesson;Sweet Malinda! Alcohol is The Imperial Wizard;1968
+1082;Sture Johannesson;Find Out Yourself!;1969
+1083;Sture Johannesson;Aries - Pisces - Aquarius;1969
+1084;Nancy Spero;Codex Artaud XIII;1972
+1085;unk;It's Even Worse in Europe;1986
+1197;Christian Boltanski;Réserve de Suisses morts;1991
+1198;Juan Muñoz;The Nature of Visual Illusion;1994-1997
+1163;Joaquín Torres-García;Estructura con varilla blanca y círculo rojo superpuestos;1935
+1164;Joan Miró;Oiseau;1946-1949
+1165;Joan Miró;Tête;1946-1949
+1166;Joan Miró;Oiseau (Solaire);ca. 1946
+1199;Leonor Antunes;Anni #18 Fragment 13;2015
+1188;Antoni Cumella;unk;unk
+1189;Antoni Cumella;unk;unk
+1190;Antoni Cumella;unk;unk
+1167;Joan Miró;Femme;1949
+1168;Joan Miró;Personnage;1949
+1169;Joan Miró;Femme;1949
+1170;Joan Miró;Femme;1949
+1171;Joan Miró;Tête;1950
+1172;Antoni Cumella;unk;1951
+1159;Joaquín Torres-García;Formas sobre fondo blanco;1924
+1173;Antoni Cumella;unk;1952
+1193;Constant;Construction aux plans transparents;1954
+1174;Antoni Cumella;unk;1955
+1086;unk;Bus Co.;1989
+1087;unk;Do Women Have to Be Naked to Get into the Met. Museum?;1989
+1175;Antoni Cumella;unk;1956
+1176;Antoni Cumella;unk;1956
+1177;Jorge Oteiza;Variante ovoide de la desocupación de la esfera;1958
+1178;Antoni Cumella;unk;1958
+1179;Antoni Cumella;unk;1958
+1160;Alberto;Signo de mujer rural en un camino, lloviendo;1925-1930
+1180;Antoni Cumella;unk;1958
+1181;Jorge Oteiza;Desocupación no cúbica del espacio;1959
+1182;Jorge Oteiza;Caja metafísica por conjunción de dos triedros;1959
+1183;Ángel Ferrant;Serie Venecia 19;1960
+1184;Antoni Cumella;unk;1961
+1185;Antoni Cumella;unk;1963
+1194;Hans Haacke;Condensation Cube;1965 (2006) (2013)
+1195;Keith Sonnier;Neon with Cut Glass;1968 (1998)
+1161;Joaquín Torres-García;Contrapunto;1929
+1162;Joaquín Torres-García;Forma abstracta;1929
+1196;Castoro, Rosemarie;Spine on its Side;1970
+1186;Sol LeWitt;2 part piece 221;1975
+1191;Alexander Calder;unk;1931
+1187;Donald Judd;unk;1984
+1192;Alexander Calder;unk;1931
