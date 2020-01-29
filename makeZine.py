@@ -218,7 +218,7 @@ def addImage(pdf, jsonImg, pk, path = 'src/images/collectionImages/', xShift = 1
 	# horizontal image
 	im = Image.open(path+str(pk) + '.jpg')
 	bg = Image.open(path+str(pk) + 'BG.jpg')
-	im.putalpha(180)
+	im.putalpha(220)
 	bg.paste(im, (0,0), im)
 	bg.save(path+str(pk)+'alpha.jpg', "JPEG")
 
@@ -249,7 +249,10 @@ def addName(pdf, jsonImg, number):
 	pdf.set_fill_color(240)
 	pdf.set_text_color(0)
 	pdf.set_font('NeutralStd', 'B', size = 9)
-	pdf.cell(0, 8, txt='                 '+name, ln=1, align='L', border = 1, fill = True)
+	if int(number) >= 100:
+		pdf.cell(0, 8, txt='                     '+name, ln=1, align='L', border = 1, fill = True)
+	else:
+		pdf.cell(0, 8, txt='                 '+name, ln=1, align='L', border = 1, fill = True)
 	
 	pdf.set_fill_color(52, 152, 219)
 	pdf.set_font('NeutralStd', '', size = 10)
@@ -636,13 +639,54 @@ def addFonts(pdf):
 	pdf.add_font('NeutralStd', 'B', 'src/fonts/NeutralStd-Bold.ttf', uni = True)
 	pdf.add_font('NeutralStd', 'I', 'src/fonts/NeutralStd-RegularItalic.ttf', uni = True)
 
+def addPerfilImageDescription(pdf, jsonImg, description, pk, path = 'src/images/collectionImages/'):
+
+	pdf.set_text_color(0)
+	pdf.set_font('NeutralStd', '', size = 9)
+	pdf.set_draw_color(255)
+	pdf.ln(138)
+	pdf.cell(0, 8, txt=description, ln=1, align='C', border = 1, fill = False)
+
+	urlBG = getOriginalImage(jsonImg)
+	downloadImage(urlBG, str(pk) + 'BG.jpg', path)
+
+	imSize = Image.open(path + str(pk) + 'BG.jpg').size
+
+	maxSize = 100
+
+	pdf.set_fill_color(245)
+	xShift = 24
+	yShift = 40
+	pdf.rect(xShift-0.1, yShift-0.1, maxSize+0.2, maxSize+0.2, 'DF')
+
+	# horizontal image
+	if imSize[0] > imSize[1]:
+		imSize = scaleToDefaultWidth(imSize, maxSize)
+		#pdf.image(path + str(pk) + '.jpg', x = xShift, y = yShift + (maxSize - imSize[1])/2, w = maxSize)
+		pdf.image(path + str(pk) + 'BG.jpg', x = xShift, y = yShift + (maxSize - imSize[1])/2, w = maxSize)
+
+	# vertical image
+	else:
+		imSize = scaleToDefaultHeight(imSize, maxSize)
+		#pdf.image(path + str(pk) + '.jpg', x = xShift + (maxSize - imSize[0])/2, y = yShift, h = maxSize)
+		pdf.image(path + str(pk) + 'BG.jpg', x = xShift + (maxSize - imSize[0])/2, y = yShift, h = maxSize)
+	
+	del imSize
+
+	pdf.set_draw_color(170)
+	
+	return
+
 
 def addResults(pdf, dataList, idGaleryAIList):
 
-	idGaleryList, AIList = [], []
-	for result in pkAIList:
+	pdf.add_page()
+
+	idGaleryList, AIList, descriptionList = [], [], []
+	for result in idGaleryAIList:
 		idGaleryList.append(result[0])
 		AIList.append(result[1])
+		descriptionList.append(result[2])
 
 	## results
 
@@ -661,11 +705,12 @@ def addResults(pdf, dataList, idGaleryAIList):
 
 	i = 0
 	while i < len(pkList):
-		pdf.add_page()
+		
 		pk = pkList[i]
-		#print('# pk: {} | result: {} | galery: {}'.format(pk, idGaleryList[i][0], idGaleryList[i][1]))
+		print('# pk: {} | result: {} | galery: {}'.format(pk, idGaleryList[i][0], idGaleryList[i][1]))
 		galeryIndex = galeryIndexList[i]
 		AI = AIList[i]
+		description = descriptionList[i]
 
 		# check if pk is in list
 		try:
@@ -677,6 +722,11 @@ def addResults(pdf, dataList, idGaleryAIList):
 
 		index = idGaleryList[i][0]-1
 		jsonImg = dataList[galeryIndex]['images'][index]
+
+		pdf.add_page()
+		addPerfilImageDescription(pdf, jsonImg, description, pk)
+
+		pdf.add_page()
 
 		addImage(pdf, jsonImg, pk)
 		addName(pdf, jsonImg, number = i+1)
@@ -770,16 +820,16 @@ def getPkAIList(path):
 
 	pkAIList = []
 	with open(path, 'r') as file:
-		temp = file.readline().split(',')
+		temp = file.readline().split(';')
 		temp = [item.strip() for item in temp]
-		while len(temp) == 4:
+		while len(temp) == 5:
 			aux = [int(value) for value in temp[0:2]]
-			pkAIList.append([tuple(aux), temp[2:]])
+			pkAIList.append([tuple(aux), temp[2:4], temp[4]])
 			
-			temp = file.readline().split(',')
+			temp = file.readline().split(';')
 			temp = [item.strip() for item in temp]
 
-	# return a list of [[[#, galeria], [AI1, AI2]], ...]
+	# return a list of [[[#, galeria], [AI1, AI2], 'string'], ...]
 	return pkAIList
 
 if __name__ == '__main__':
@@ -808,6 +858,7 @@ if __name__ == '__main__':
 
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
+	print(pkAIList)
 
 	print('Zine its being made, migth take some minutes...')
 	makeZine(jsonPathList, collaborators, pkAIList)
