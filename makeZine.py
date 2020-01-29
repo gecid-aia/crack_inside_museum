@@ -858,7 +858,6 @@ if __name__ == '__main__':
 
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
-	print(pkAIList)
 
 	print('Zine its being made, migth take some minutes...')
 	makeZine(jsonPathList, collaborators, pkAIList)
