@@ -1,10 +1,10 @@
 1279;Albano Afonso;Autorretrato com modernos Latino-americanos e europeus;2005/2010
 1280;Andrea Brown;Irmãos;2008
-1281;Claudio Cretti;Sem título;2003
+1281;Claudio Cretti;unk;2003
 1282;Deborah Paiva;Amigos;2012
 1283;Felipe Cama;Páginas 648 e 649 da série Foi assim que me ensinaram;2012
 1284;Geórgia Kyriakakis;Graphos II;2002
-1285;Iran do Espírito Santo;Sem título (Buraco de fechadura);2002
+1285;Iran do Espírito Santo;unk (Buraco de fechadura);2002
 1286;João Loureiro;Zootécnico;2009
 1287;João Loureiro;Zootécnico;2009
 1288;João Loureiro;Zootécnico;2009
@@ -15,14 +15,14 @@
 1293;Lucas Simões;Tendências da Escultura Moderna;2012
 1294;Luiz Braga;Carroça;2010
 1278;Marepe;Caldo Impresso;2015
-1295;Paulo Whitaker;Sem título;2008
+1295;Paulo Whitaker;unk;2008
 1296;Regina Silveira;Una vez más;2012
 1297;Sandra Cinto;Tempestade noturna;2010/11
-1298;Vânia Mignone;Sem título;2014
+1298;Vânia Mignone;unk;2014
 1304;Gustavo Von Ha;Projeto Tarsila (Retrato), Raisonné;2011
 1306;JOSÉ CARRATU;A Mala;1986/87
-1310;JUNIOR SUCI;Sem título;2010
-1311;JUNIOR SUCI;Sem título;2010
+1310;JUNIOR SUCI;unk;2010
+1311;JUNIOR SUCI;unk;2010
 1321;ZED NESTI;Book of Faces of Facebook;2009/2010
 1322;ZED NESTI;Book of Faces of Facebook;2009/2010
 1323;ZED NESTI;Book of Faces of Facebook;2009/2010
@@ -56,9 +56,9 @@
 1307;José Roberto Aquilar;Série do Futebol(1);1966
 1308;José Roberto Aquilar;Série do Futebol(2);1966
 1309;José Roberto Aquilar;Série do Futebol(3);1966
-1312;Nuno Ramos;Sem título;1984
+1312;Nuno Ramos;unk;1984
 1313;Paul Klee;A Santa Luz Interior;1921
-1314;Paulo Monteiro;Sem título;1985
+1314;Paulo Monteiro;unk;1985
 1315;Tarsila do Amaral;A Negra;1923
 1316;Tarsila do Amaral;Estrada de Ferro Central do Brasil;1924
 1317;Tarsila do Amaral;Paisagem Rural;1924
@@ -86,4 +86,4 @@
 1274;Omar Rayo;Tilodiran;1971
 1275;René Portocarrero;Catedral;1961
 1276;Roberto Sebastián Matta;Composição;unk
-1277;Rufino Tamayo;Sem título;unk
+1277;Rufino Tamayo;unk;unk
