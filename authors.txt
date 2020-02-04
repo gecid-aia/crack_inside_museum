@@ -20,14 +20,14 @@
 1297;Sandra Cinto;Tempestade noturna;2010-2011
 1298;Vânia Mignone;unk;2014
 1304;Gustavo Von Ha;Projeto Tarsila (Retrato), Raisonné;2011
-1306;JOSÉ CARRATU;A Mala;1986-1987
-1310;JUNIOR SUCI;unk;2010
-1311;JUNIOR SUCI;unk;2010
-1321;ZED NESTI;Book of Faces of Facebook;2009-2010
-1322;ZED NESTI;Book of Faces of Facebook;2009-2010
-1323;ZED NESTI;Book of Faces of Facebook;2009-2010
-1324;ZED NESTI;Book of Faces of Facebook;2009-2010
-1325;ZED NESTI;Book of Faces of Facebook;2009-2010
+1306;José Carratu;A Mala;1986-1987
+1310;Junior Suci;unk;2010
+1311;Junior Suci;unk;2010
+1321;Zed Nesti;Book of Faces of Facebook;2009-2010
+1322;Zed Nesti;Book of Faces of Facebook;2009-2010
+1323;Zed Nesti;Book of Faces of Facebook;2009-2010
+1324;Zed Nesti;Book of Faces of Facebook;2009-2010
+1325;Zed Nesti;Book of Faces of Facebook;2009-2010
 1340;Antoni Tàpies;Ásia;1951
 1341;Antonio Bandeira;Flora Noturna;1959
 1342;Barbara Hepworth;Cantante Domino;1958
