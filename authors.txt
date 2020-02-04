@@ -42,7 +42,7 @@
 1330;Rodrigo Linhares;#21 Clinch;2015
 1331;Rodrigo Linhares;#31 Clinch;2015
 1333;Rodrigo Linhares;#06 Clinch;2015
-1335;Rodrigo Linhares;RepÃºblica #6 da sÃ©rie RepÃºblica;2016
+1335;Rodrigo Linhares;República #6 da série República;2016
 1338;Rodrigo Linhares;#1 Taurus;2016
 1336;Rodrigo Linhares;#11 Taurus;2016
 1337;Rodrigo Linhares;#15 Taurus;2016
