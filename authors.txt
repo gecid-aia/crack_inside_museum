@@ -10,6 +10,7 @@
 1288;João Loureiro;Zootécnico;2009
 1289;João Loureiro;Zootécnico;2009
 1290;João Loureiro;Zootécnico;2009
+1347;João Loureiro;Zootécnico;2009
 1291;Jonathas de Andrade;Educação para adultos;2010
 1292;Julio Leite;Palavras cruzadas em azul;2013
 1293;Lucas Simões;Tendências da Escultura Moderna;2012
@@ -31,7 +32,6 @@
 1340;Antoni Tàpies;Ásia;1951
 1341;Antonio Bandeira;Flora Noturna;1959
 1342;Barbara Hepworth;Cantante Domino;1958
-1344;Serge Poliakoff;Composição;1952
 1345;Waldemar Cordeiro;Movimento;1951
 1346;Yolanda Mohalyi;A Grande Viagem;1969
 1327;Rodrigo Linhares;Algorab #03;2017
@@ -42,10 +42,11 @@
 1330;Rodrigo Linhares;#21 Clinch;2015
 1331;Rodrigo Linhares;#31 Clinch;2015
 1333;Rodrigo Linhares;#06 Clinch;2015
+1334;Tadeu Jungle;Você Está Aqui;2016
 1335;Rodrigo Linhares;República #6 da série República;2016
 1338;Rodrigo Linhares;#1 Taurus;2016
 1336;Rodrigo Linhares;#11 Taurus;2016
-1337;Rodrigo Linhares;#15 Taurus;2016
+1355;Rodrigo Linhares;#15 Taurus;2016
 1339;Rodrigo Linhares;#57 Taurus;2016
 1299;Amedeo Modigliani;Autorretrato;1919
 1300;Anita Malfatti;A Boba;1915-1916
@@ -79,10 +80,10 @@
 1267;Jesus Rafael Soto;Vibração;1963
 1349;José Luis Cuevas;Estudo para Modelos;1959
 1269;Luis Fernando Benedit;Hydrophilus Carabóides;unk
-1270;Mario Toral;Ritmos Verticais,1955
+1270;Mario Toral;Ritmos Verticais;1955
 1271;Marta Colvin;Signo Solar;1962
 1272;Marta Peluffo;Essa Ave Confessora do Planeta;1963
-1273;Nemesio Antúnez - Os Transeuntes;1954
+1273;Nemesio Antúnez;Os Transeuntes;1954
 1350;Omar Rayo;Tilodiran;1971
 1275;René Portocarrero;Catedral;1961
 1276;Roberto Sebastián Matta;Composição;unk

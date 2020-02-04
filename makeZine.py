@@ -108,6 +108,15 @@ def getVisuallySimilarImages(jsonImg, pk):
 	try:
 		temp = jsonImg['googlecloud']['webDetection']['visuallySimilarImages']
 	except:
+		## exception error
+		if pk == 1259:
+			urls = ['https://i0.wp.com/artedecoleccioncr.com/wp-content/uploads/2018/08/armando-morales-01.jpg?fit=816%2C1200&ssl=1', 'https://i.pinimg.com/236x/22/45/e6/2245e63ba508c9c6137c9d42becdf765--apples.jpg']
+			return urls
+		if pk == 1308:
+			urls = ['https://1.bp.blogspot.com/-OEIHX094u90/WL-F5dHq8aI/AAAAAAAAJd4/T8-bEajhPN8r1k6W86DLX_Hm5MOsD05AACEw/s1600/joserobertoaguilar_2.jpg', 'https://1.bp.blogspot.com/-OEIHX094u90/WL-F5dHq8aI/AAAAAAAAJd4/T8-bEajhPN8r1k6W86DLX_Hm5MOsD05AACEw/s1600/joserobertoaguilar_2.jpg']
+			return urls
+		
+		
 		return None
 	urls = []
 	i = 0
@@ -743,6 +752,7 @@ def addResults(pdf, dataList, idGaleryAIList, pkAuthorDict):
 				galeryIndexList.append(index)
 
 	i = 0
+	print(pkAuthorDict)
 	while i < len(pkList):
 		
 		pk = pkList[i]
@@ -878,7 +888,7 @@ def getPkAuthor(path):
 		temp = [item.strip() for item in temp]
 		while len(temp) == 4:
 			pkAuthorDict[int(temp[0])] = {'author': temp[1], 'title': temp[2],'year': temp[3]}
-
+			print(int(temp[0]))
 			temp = file.readline().split(';')
 			temp = [item.strip() for item in temp]
 
@@ -910,7 +920,6 @@ if __name__ == '__main__':
 
 	pkAIPath = 'pkAIList.txt'
 	pkAIList = getPkAIList(pkAIPath)
-
 
 	pkAuthorPath = 'authors.txt'
 	pkAuthorDict = getPkAuthor(pkAuthorPath)
