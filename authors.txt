@@ -51,7 +51,7 @@
 1300;Anita Malfatti;A Boba;1915-1916
 1301;Anita Malfatti;Torso/Ritmo;1915-1916
 1302;Carlos Zilio;Para um Jovem de Brilhante Futuro;1973-1974
-1303;Claudia Andujar;Inês;1971
+1351;Claudia Andujar;Inês;1971
 1305;Ismael Nery;Figura;1927-1928
 1307;José Roberto Aquilar;Série do Futebol(1);1966
 1308;José Roberto Aquilar;Série do Futebol(2);1966
@@ -77,13 +77,13 @@
 1265;Ulises Carrión e Ivald Granato;O Domador de Boca;1978
 1266;Jesus Rafael Soto;Vibração;1963
 1267;Jesus Rafael Soto;Vibração;1963
-1268;José Luis Cuevas;Estudo para Modelos;1959
+1349;José Luis Cuevas;Estudo para Modelos;1959
 1269;Luis Fernando Benedit;Hydrophilus Carabóides;unk
 1270;Mario Toral;Ritmos Verticais,1955
 1271;Marta Colvin;Signo Solar;1962
 1272;Marta Peluffo;Essa Ave Confessora do Planeta;1963
 1273;Nemesio Antúnez - Os Transeuntes;1954
-1274;Omar Rayo;Tilodiran;1971
+1350;Omar Rayo;Tilodiran;1971
 1275;René Portocarrero;Catedral;1961
 1276;Roberto Sebastián Matta;Composição;unk
 1277;Rufino Tamayo;unk;unk
