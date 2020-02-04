@@ -108,6 +108,12 @@ def getVisuallySimilarImages(jsonImg, pk):
 	try:
 		temp = jsonImg['googlecloud']['webDetection']['visuallySimilarImages']
 	except:
+
+		## exception ##
+		if pk == 1174:
+			print('deu certo')
+			urls = ['https://i.ytimg.com/vi/6HC1XpUnB-k/hqdefault.jpg', 'https://i.etsystatic.com/9353498/d/il/402947/2164048286/il_340x270.2164048286_rgl2.jpg?version=0']
+			return urls
 		return None
 	urls = []
 	i = 0
