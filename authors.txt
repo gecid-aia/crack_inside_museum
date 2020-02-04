@@ -1,127 +1,89 @@
-1098;Lucio Fontana;Concetto spaziale;1957
-1099;Pablo Palazuelo;La grande √©tude IV;1957-1958
-1100;Antoni T√°pies;Quatre quadrats grisos sobre fons marr√≥;1959
-1101;Antoni T√°pies;Pintura ocre;1959
-1102;Josep Maria de Sucre;Rostre expressionista amb grisos;1963
-1103;Josep Maria de Sucre;Rostre;1963
-1095;Anni Albers;Connections;1925-1983
-1104;Jaume Xifra;Pochoir Objets;1966
-1105;Jaume Xifra;Composici√≥;1966
-1106;Zush;Solomo, mesias del siglo XX, ante el deseo de la monta√±a de madera;1968
-1096;Joaquin Torres-Garcia;Planos de color con dos maderas superpuestas;1928
-1107;Joan Rabascall;Atomic Kiss;1968
-1108;Zush;La confusi√≥n del pasado en el Zerebro;1969
-1109;Nancy Spero;Artaud Painting ‚Äì That thick hemp in the neck of the priest about to be hung;1969
-1110;Nancy Spero;Artaud Painting ‚Äì From this pain... ;1969
-1111;ASPEN;ASPEN. The Multimedia Magazine in a Box. No. 9. The Psichedelic issue;1971
-1112;Nancy Spero;Codex Artaud V;1971
-1097;Pere Daura;unk;ca. 1929
-1113;Robert Llim√≥s;Espai Ple [ratlles];1971
-1114;Zush;Kaenia II;1972
-1115;Zush;Gorphino;1973
-1116;Ferran Garcia Sevilla;Dieu face √† la terre. S√®rie D√©us n√∫m. 17;1981
-1117;Ferran Garcia Sevilla;Deu aliorum o god wanted. S√®rie D√©us n√∫m. 22 ;1981
-1118;Ferran Garcia Sevilla;D√©u amb el cos de metall i molt de bra√ßos o God beside a litte fire. S√®rie D√©us n√∫m. 24;1981
-1119;Ferran Garcia Sevilla;Der Gott der lichter am himmel o Dio di citt√†. S√®rie D√©us n√∫m.34;1981
-1120;Ferran Garcia Sevilla;D√©u que fa menjar aire. S√®rie D√©us n√∫m. 39;1981
-1121;Ferran Garcia Sevilla;Dio del dolce fare niente. S√®rie D√©us n√∫m. 54;1981
-1122;Ferran Garcia Sevilla;Der tote und lebenhige Gott. Dios man√≠aco. S√®rie D√©us n√∫m. 56;1981
-1123;Jean-Michel Basquiat;Sterno;1985
-1124;Jean-Michel Basquiat;King Zulu;1986
-1127;Xavier Basiana, Jaume Orpinell;Catalana de Gas;1997-1998
-1128;Xavier Basiana, Jaume Orpinell;Can Batll√≥;1997-1998
-1129;Xavier Basiana, Jaume Orpinell;Bayer, SA;1997-1998
-1130;Xavier Basiana, Jaume Orpinell;Myrurgia;1997-1998
-1131;Xavier Basiana, Jaume Orpinell;Editorial Montaner i Sim√≥n;1997-1998
-1132;Xavier Basiana, Jaume Orpinell;Ca l'Arany√≥;1997-1998
-1133;Xavier Basiana, Jaume Orpinell;Can Felipa - CATEX;1997-1998
-1134;Xavier Basiana, Jaume Orpinell;Palo Alto;1997-1998
-1135;Xavier Basiana, Jaume Orpinell;Can Ricart;1997-1998
-1136;Xavier Basiana, Jaume Orpinell;Fundici√≥n Tipogr√°fica Neufville, S.A.;1997-1998
-1137;Xavier Basiana, Jaume Orpinell;Cristaler√≠as Planell;1997-1998
-1138;Xavier Basiana, Jaume Orpinell;Can Batll√≥ - La Bordeta;1997-1998
-1139;David Goldblatt;A logistical warehause in the Zona d'Activitats Log√≠stiques (ZAL). S√®rie: "Connexions globals";2007
-1140;David Goldblatt;Roundabout, Zona Franca, Barcelona. S√®rie: "Connexions globals";2007
-1141;David Goldblatt;Turkish Truck Drivers Share Their Lunch, Zona d'Activitats Log√≠stiques (ZAL). S√®rie: "Connexions globals";2007
-1142;David Goldblatt;Agriculture in the Delta del Llobregat, El Prat del Llobregat. S√®rie: "Connexions globals";2007
-1143;David Goldblatt;The Fish Market 06:30 AM, Mercabarna, Zona Franca, Barcelona. S√®rie: "Connexions globals";2007
-1144;David Goldblatt;On the C-31, Autovia de Castelldefels, Gav√†. S√®rie: "Connexions globals";2007
-1145;David Goldblatt;Beginning the Construction of a Bridge for a High-speed Railway linking Barcelona and Madrid. S√®rie: "Connexions globals";2007
-1146;David Goldblatt;Construction of a new metro line, Zona Franca, Barcelona. S√®rie: "Connexions globals";2007
-1147;David Goldblatt;Watching Planes Come in, el Mirador del Prat, El Prat del Llobregat. S√®rie: "Connexions globals";2008
-1148;David Goldblatt;Construction of the New Terminal, Barcelona Airport, El Prat del Llobregat. S√®rie: "Connexions globals";2008
-1149;David Goldblatt;The New Control Tower and Falcons Used for Keeping Her Runways Clear of Birds, Barcelona Airport, El Prat del Llobregat. S√®rie: "Connexions globals";2008
-1150;David Goldblatt;View from the Harbour Master's New Control Tower in the Port of Barcelona. S√®rie: "Connexions globals";2007
-1200;David Goldblatt;The New Control Tower and Its Interior, Barcelona Airport, El Prat del Llobregat. S√®rie: "Connexions globals";2007
-1152;David Goldblatt;Warehouse Interior, Zona d'Activitats Log√≠stiques (ZAL). S√®rie: "Connexions globals";2007
-1153;David Goldblatt;South Breakwater under Construction, Port of Barcelona. S√®rie: "Connexions globals";2007
-1154;David Goldblatt;East breakwater under construction, Port of Barcelona. S√®rie: "Connexions globals";2007
-1155;David Goldblatt;Billboards and Empty Ground next to Ronda de Llevant, El Prat de Llobregat. S√®rie: "Connexions globals";2007
-1156;David Goldblatt;Passengers from a Cruise Liner in the Port of Barcelona, Queue for Taxis to Take Them into the City. S√®rie: "Connexions globals";2007
-1157;David Goldblatt;At the New Mouth of the River Llobregat. S√®rie: "Connexions globals";2007
-1158;Carlos Aires;Mar negro;2013
-1125;Jo Spence;Beyond the Family Album;1978-1979
-1126;Jo Spence, Terry Dennett;Remodelling Photo History;1982
-1088;unk;Pop Quiz;1990
-1089;unk;Republicans Do Believe in a Woman's Right to Control Her Own Body!;1992
-1090;unk;Token Times;1995
-1091;Xavier Basiana, Jaume Orpinell;Editorial Gustavo Gili;1997-1998
-1092;Xavier Basiana, Jaume Orpinell;SEAT;1997-1998
-1093;Xavier Basiana, Jaume Orpinell;L√°mparas Z;1997-1998
-1094;Xavier Basiana, Jaume Orpinell;La Pegaso - ENASA;1997-1998
-1073;ASPEN;ASPEN. The Multimedia Magazine in a Box. No 3. The Pop Art issue;1966
-1074;Sture Johannesson;Welcome back! For Ann-Charlotte;1967
-1075;Herminio Molero;Chill Rooms. S√®rie: "Blues";1968
-1076;Herminio Molero;Wild O'clock. S√®rie: "Blues";1968
-1077;Herminio Molero;Another Little Breakfast;1968
-1078;Richard Hamilton;The Beatles;1968
-1079;Sture Johannesson;Revolution Means Revolutionary Consciousness!;1968
-1080;Sture Johannesson;Modellen / The Model: A Model For a Qualitative Society;1968
-1081;Sture Johannesson;Sweet Malinda! Alcohol is The Imperial Wizard;1968
-1082;Sture Johannesson;Find Out Yourself!;1969
-1083;Sture Johannesson;Aries - Pisces - Aquarius;1969
-1084;Nancy Spero;Codex Artaud XIII;1972
-1085;unk;It's Even Worse in Europe;1986
-1197;Christian Boltanski;R√©serve de Suisses morts;1991
-1198;Juan Mu√±oz;The Nature of Visual Illusion;1994-1997
-1163;Joaqu√≠n Torres-Garc√≠a;Estructura con varilla blanca y c√≠rculo rojo superpuestos;1935
-1164;Joan Mir√≥;Oiseau;1946-1949
-1165;Joan Mir√≥;T√™te;1946-1949
-1166;Joan Mir√≥;Oiseau (Solaire);ca. 1946
-1199;Leonor Antunes;Anni #18 Fragment 13;2015
-1188;Antoni Cumella;unk;unk
-1189;Antoni Cumella;unk;unk
-1190;Antoni Cumella;unk;unk
-1167;Joan Mir√≥;Femme;1949
-1168;Joan Mir√≥;Personnage;1949
-1169;Joan Mir√≥;Femme;1949
-1170;Joan Mir√≥;Femme;1949
-1171;Joan Mir√≥;T√™te;1950
-1172;Antoni Cumella;unk;1951
-1159;Joaqu√≠n Torres-Garc√≠a;Formas sobre fondo blanco;1924
-1173;Antoni Cumella;unk;1952
-1193;Constant;Construction aux plans transparents;1954
-1174;Antoni Cumella;unk;1955
-1086;unk;Bus Co.;1989
-1087;unk;Do Women Have to Be Naked to Get into the Met. Museum?;1989
-1175;Antoni Cumella;unk;1956
-1176;Antoni Cumella;unk;1956
-1177;Jorge Oteiza;Variante ovoide de la desocupaci√≥n de la esfera;1958
-1178;Antoni Cumella;unk;1958
-1179;Antoni Cumella;unk;1958
-1160;Alberto;Signo de mujer rural en un camino, lloviendo;1925-1930
-1180;Antoni Cumella;unk;1958
-1181;Jorge Oteiza;Desocupaci√≥n no c√∫bica del espacio;1959
-1182;Jorge Oteiza;Caja metaf√≠sica por conjunci√≥n de dos triedros;1959
-1183;√Ångel Ferrant;Serie Venecia 19;1960
-1184;Antoni Cumella;unk;1961
-1185;Antoni Cumella;unk;1963
-1194;Hans Haacke;Condensation Cube;1965 (2006) (2013)
-1195;Keith Sonnier;Neon with Cut Glass;1968 (1998)
-1161;Joaqu√≠n Torres-Garc√≠a;Contrapunto;1929
-1162;Joaqu√≠n Torres-Garc√≠a;Forma abstracta;1929
-1196;Castoro, Rosemarie;Spine on its Side;1970
-1186;Sol LeWitt;2 part piece 221;1975
-1191;Alexander Calder;unk;1931
-1187;Donald Judd;unk;1984
-1192;Alexander Calder;unk;1931
+1279;Albano Afonso;Autorretrato com modernos Latino-americanos e europeus;2005/2010
+1280;Andrea Brown;Irm„os;2008
+1281;Claudio Cretti;Sem tÌtulo;2003
+1282;Deborah Paiva;Amigos;2012
+1283;Felipe Cama;P·ginas 648 e 649 da sÈrie Foi assim que me ensinaram;2012
+1284;GeÛrgia Kyriakakis;Graphos II;2002
+1285;Iran do EspÌrito Santo;Sem tÌtulo (Buraco de fechadura);2002
+1286;Jo„o Loureiro;ZootÈcnico;2009
+1287;Jo„o Loureiro;ZootÈcnico;2009
+1288;Jo„o Loureiro;ZootÈcnico;2009
+1289;Jo„o Loureiro;ZootÈcnico;2009
+1290;Jo„o Loureiro;ZootÈcnico;2009
+1291;Jonathas de Andrade;EducaÁ„o para adultos;2010
+1292;Julio Leite;Palavras cruzadas em azul;2013
+1293;Lucas Simıes;TendÍncias da Escultura Moderna;2012
+1294;Luiz Braga;CarroÁa;2010
+1278;Marepe;Caldo Impresso;2015
+1295;Paulo Whitaker;Sem tÌtulo;2008
+1296;Regina Silveira;Una vez m·s;2012
+1297;Sandra Cinto;Tempestade noturna;2010/11
+1298;V‚nia Mignone;Sem tÌtulo;2014
+1304;Gustavo Von Ha;Projeto Tarsila (Retrato), RaisonnÈ;2011
+1306;JOS… CARRATU;A Mala;1986/87
+1310;JUNIOR SUCI;Sem tÌtulo;2010
+1311;JUNIOR SUCI;Sem tÌtulo;2010
+1321;ZED NESTI;Book of Faces of Facebook;2009/2010
+1322;ZED NESTI;Book of Faces of Facebook;2009/2010
+1323;ZED NESTI;Book of Faces of Facebook;2009/2010
+1324;ZED NESTI;Book of Faces of Facebook;2009/2010
+1325;ZED NESTI;Book of Faces of Facebook;2009/2010
+1340;Antoni T‡pies;¡sia;1951
+1341;Antonio Bandeira;Flora Noturna;1959
+1342;Barbara Hepworth;Cantante Domino;1958
+1344;Serge Poliakoff;ComposiÁ„o;1952
+1345;Waldemar Cordeiro;Movimento;1951
+1346;Yolanda Mohalyi;A Grande Viagem;1969
+1327;Rodrigo Linhares;Algorab #03;2017
+1328;Rodrigo Linhares;Algorab #08;2017
+1326;Rodrigo Linhares;Algorab #10;2017
+1332;Rodrigo Linhares;#06 Clinch;2015
+1329;Rodrigo Linhares;#19 Clinch;2015
+1330;Rodrigo Linhares;#21 Clinch;2015
+1331;Rodrigo Linhares;#31 Clinch;2015
+1333;Rodrigo Linhares;#06 Clinch;2015
+1335;Rodrigo Linhares;Rep√∫blica #6 da s√©rie Rep√∫blica;2016
+1338;Rodrigo Linhares;#1 Taurus;2016
+1336;Rodrigo Linhares;#11 Taurus;2016
+1337;Rodrigo Linhares;#15 Taurus;2016
+1339;Rodrigo Linhares;#57 Taurus;2016
+1299;Amedeo Modigliani;Autorretrato;1919
+1300;Anita Malfatti;A Boba;1915/16
+1301;Anita Malfatti;Torso/Ritmo;1915/16
+1302;Carlos Zilio;Para um Jovem de Brilhante Futuro;1973/74
+1303;Claudia Andujar;InÍs;1971
+1305;Ismael Nery;Figura;1927/28
+1307;JosÈ Roberto Aquilar;SÈrie do Futebol(1);1966
+1308;JosÈ Roberto Aquilar;SÈrie do Futebol(2);1966
+1309;JosÈ Roberto Aquilar;SÈrie do Futebol(3);1966
+1312;Nuno Ramos;Sem tÌtulo;1984
+1313;Paul Klee;A Santa Luz Interior;1921
+1314;Paulo Monteiro;Sem tÌtulo;1985
+1315;Tarsila do Amaral;A Negra;1923
+1316;Tarsila do Amaral;Estrada de Ferro Central do Brasil;1924
+1317;Tarsila do Amaral;Paisagem Rural;1924
+1318;Umberto Boccioni;Desenvolvimento de uma Garrafa no EspaÁo;1912
+1319;Umberto Boccioni;Formas ⁄nicas da Continuidade no EspaÁo;1913
+1320;Wassily Kandinsky;ComposiÁ„o Clara;1942
+1256;Alfredo Portillos;Caixa com Sabonetes para Distintas Classes Sociais;1975
+1257;Americo Sposito;Pintura;1954
+1258;AntÙnio Liz·rraga;Perpendicular n∫ 35;1991
+1259;Armando Morales;Sereias II;1958
+1260;Clemente Padin;O Artista Est· a ServiÁo da Comunidade;1974
+1261;Diego Barboza;Acontecimentounk Arte como Gente / Gente como Arte;1976
+1262;Eduardo Ramirez Villamizar;ConstruÁ„o Vermelha;1969
+1263;Francisco Copello;Calend·rio;1974
+1264;Horacio Zabala;IntegraÁ„o de Linguagens PoÈticas Experimentais com InvestigaÁıes Sociais e EconÙmicas;1974
+1265;Ulises CarriÛn e Ivald Granato;O Domador de Boca;1978
+1266;Jesus Rafael Soto;VibraÁ„o;1963
+1267;Jesus Rafael Soto;VibraÁ„o;1963
+1268;JosÈ Luis Cuevas;Estudo para Modelos;1959
+1269;Luis Fernando Benedit;Hydrophilus CarabÛides;unk
+1270;Mario Toral;Ritmos Verticais,1955
+1271;Marta Colvin;Signo Solar;1962
+1272;Marta Peluffo;Essa Ave Confessora do Planeta;1963
+1273;Nemesio Ant˙nez  -Os Transeuntes;1954
+1274;Omar Rayo;Tilodiran;1971
+1275;RenÈ Portocarrero;Catedral;1961
+1276;Roberto Sebasti·n Matta;ComposiÁ„o;unk
+1277;Rufino Tamayo;Sem tÌtulo;unk
