@@ -86,4 +86,4 @@
 1274;Omar Rayo;Tilodiran;1971
 1275;René Portocarrero;Catedral;1961
 1276;Roberto Sebastián Matta;Composição;unk
-1277;Rufino Tamayo;unk;unk 
+1277;Rufino Tamayo;unk;unk
