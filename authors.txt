@@ -1,26 +1,26 @@
 1279;Albano Afonso;Autorretrato com modernos Latino-americanos e europeus;2005-2010
-1280;Andrea Brown;Irm„os;2008
+1280;Andrea Brown;Irm√£os;2008
 1281;Claudio Cretti;unk;2003
 1282;Deborah Paiva;Amigos;2012
-1283;Felipe Cama;P·ginas 648 e 649 da sÈrie Foi assim que me ensinaram;2012
-1284;GeÛrgia Kyriakakis;Graphos II;2002
-1285;Iran do EspÌrito Santo;unk (Buraco de fechadura);2002
-1286;Jo„o Loureiro;ZootÈcnico;2009
-1287;Jo„o Loureiro;ZootÈcnico;2009
-1288;Jo„o Loureiro;ZootÈcnico;2009
-1289;Jo„o Loureiro;ZootÈcnico;2009
-1290;Jo„o Loureiro;ZootÈcnico;2009
-1291;Jonathas de Andrade;EducaÁ„o para adultos;2010
+1283;Felipe Cama;P√°ginas 648 e 649 da s√©rie Foi assim que me ensinaram;2012
+1284;Ge√≥rgia Kyriakakis;Graphos II;2002
+1285;Iran do Esp√≠rito Santo;unk (Buraco de fechadura);2002
+1286;Jo√£o Loureiro;Zoot√©cnico;2009
+1287;Jo√£o Loureiro;Zoot√©cnico;2009
+1288;Jo√£o Loureiro;Zoot√©cnico;2009
+1289;Jo√£o Loureiro;Zoot√©cnico;2009
+1290;Jo√£o Loureiro;Zoot√©cnico;2009
+1291;Jonathas de Andrade;Educa√ß√£o para adultos;2010
 1292;Julio Leite;Palavras cruzadas em azul;2013
-1293;Lucas Simıes;TendÍncias da Escultura Moderna;2012
-1294;Luiz Braga;CarroÁa;2010
+1293;Lucas Sim√µes;Tend√™ncias da Escultura Moderna;2012
+1294;Luiz Braga;Carro√ßa;2010
 1278;Marepe;Caldo Impresso;2015
 1295;Paulo Whitaker;unk;2008
-1296;Regina Silveira;Una vez m·s;2012
+1296;Regina Silveira;Una vez m√°s;2012
 1297;Sandra Cinto;Tempestade noturna;2010-2011
-1298;V‚nia Mignone;unk;2014
-1304;Gustavo Von Ha;Projeto Tarsila (Retrato), RaisonnÈ;2011
-1306;JOS… CARRATU;A Mala;1986-1987
+1298;V√¢nia Mignone;unk;2014
+1304;Gustavo Von Ha;Projeto Tarsila (Retrato), Raisonn√©;2011
+1306;JOS√â CARRATU;A Mala;1986-1987
 1310;JUNIOR SUCI;unk;2010
 1311;JUNIOR SUCI;unk;2010
 1321;ZED NESTI;Book of Faces of Facebook;2009-2010
@@ -28,10 +28,10 @@
 1323;ZED NESTI;Book of Faces of Facebook;2009-2010
 1324;ZED NESTI;Book of Faces of Facebook;2009-2010
 1325;ZED NESTI;Book of Faces of Facebook;2009-2010
-1340;Antoni T‡pies;¡sia;1951
+1340;Antoni T√†pies;√Åsia;1951
 1341;Antonio Bandeira;Flora Noturna;1959
 1342;Barbara Hepworth;Cantante Domino;1958
-1344;Serge Poliakoff;ComposiÁ„o;1952
+1344;Serge Poliakoff;Composi√ß√£o;1952
 1345;Waldemar Cordeiro;Movimento;1951
 1346;Yolanda Mohalyi;A Grande Viagem;1969
 1327;Rodrigo Linhares;Algorab #03;2017
@@ -42,7 +42,7 @@
 1330;Rodrigo Linhares;#21 Clinch;2015
 1331;Rodrigo Linhares;#31 Clinch;2015
 1333;Rodrigo Linhares;#06 Clinch;2015
-1335;Rodrigo Linhares;Rep˙blica #6 da sÈrie Rep˙blica;2016
+1335;Rodrigo Linhares;Rep√∫blica #6 da s√©rie Rep√∫blica;2016
 1338;Rodrigo Linhares;#1 Taurus;2016
 1336;Rodrigo Linhares;#11 Taurus;2016
 1337;Rodrigo Linhares;#15 Taurus;2016
@@ -51,39 +51,39 @@
 1300;Anita Malfatti;A Boba;1915-1916
 1301;Anita Malfatti;Torso/Ritmo;1915-1916
 1302;Carlos Zilio;Para um Jovem de Brilhante Futuro;1973-1974
-1303;Claudia Andujar;InÍs;1971
+1303;Claudia Andujar;In√™s;1971
 1305;Ismael Nery;Figura;1927-1928
-1307;JosÈ Roberto Aquilar;SÈrie do Futebol(1);1966
-1308;JosÈ Roberto Aquilar;SÈrie do Futebol(2);1966
-1309;JosÈ Roberto Aquilar;SÈrie do Futebol(3);1966
+1307;Jos√© Roberto Aquilar;S√©rie do Futebol(1);1966
+1308;Jos√© Roberto Aquilar;S√©rie do Futebol(2);1966
+1309;Jos√© Roberto Aquilar;S√©rie do Futebol(3);1966
 1312;Nuno Ramos;unk;1984
 1313;Paul Klee;A Santa Luz Interior;1921
 1314;Paulo Monteiro;unk;1985
 1315;Tarsila do Amaral;A Negra;1923
 1316;Tarsila do Amaral;Estrada de Ferro Central do Brasil;1924
 1317;Tarsila do Amaral;Paisagem Rural;1924
-1318;Umberto Boccioni;Desenvolvimento de uma Garrafa no EspaÁo;1912
-1319;Umberto Boccioni;Formas ⁄nicas da Continuidade no EspaÁo;1913
-1320;Wassily Kandinsky;ComposiÁ„o Clara;1942
+1318;Umberto Boccioni;Desenvolvimento de uma Garrafa no Espa√ßo;1912
+1319;Umberto Boccioni;Formas √önicas da Continuidade no Espa√ßo;1913
+1320;Wassily Kandinsky;Composi√ß√£o Clara;1942
 1256;Alfredo Portillos;Caixa com Sabonetes para Distintas Classes Sociais;1975
 1257;Americo Sposito;Pintura;1954
-1258;AntÙnio Liz·rraga;Perpendicular n∫ 35;1991
+1258;Ant√¥nio Liz√°rraga;Perpendicular n¬∫ 35;1991
 1259;Armando Morales;Sereias II;1958
-1260;Clemente Padin;O Artista Est· a ServiÁo da Comunidade;1974
+1260;Clemente Padin;O Artista Est√° a Servi√ßo da Comunidade;1974
 1261;Diego Barboza;Acontecimentounk Arte como Gente / Gente como Arte;1976
-1262;Eduardo Ramirez Villamizar;ConstruÁ„o Vermelha;1969
-1263;Francisco Copello;Calend·rio;1974
-1264;Horacio Zabala;IntegraÁ„o de Linguagens PoÈticas Experimentais com InvestigaÁıes Sociais e EconÙmicas;1974
-1265;Ulises CarriÛn e Ivald Granato;O Domador de Boca;1978
-1266;Jesus Rafael Soto;VibraÁ„o;1963
-1267;Jesus Rafael Soto;VibraÁ„o;1963
-1268;JosÈ Luis Cuevas;Estudo para Modelos;1959
-1269;Luis Fernando Benedit;Hydrophilus CarabÛides;unk
+1262;Eduardo Ramirez Villamizar;Constru√ß√£o Vermelha;1969
+1263;Francisco Copello;Calend√°rio;1974
+1264;Horacio Zabala;Integra√ß√£o de Linguagens Po√©ticas Experimentais com Investiga√ß√µes Sociais e Econ√¥micas;1974
+1265;Ulises Carri√≥n e Ivald Granato;O Domador de Boca;1978
+1266;Jesus Rafael Soto;Vibra√ß√£o;1963
+1267;Jesus Rafael Soto;Vibra√ß√£o;1963
+1268;Jos√© Luis Cuevas;Estudo para Modelos;1959
+1269;Luis Fernando Benedit;Hydrophilus Carab√≥ides;unk
 1270;Mario Toral;Ritmos Verticais,1955
 1271;Marta Colvin;Signo Solar;1962
 1272;Marta Peluffo;Essa Ave Confessora do Planeta;1963
-1273;Nemesio Ant˙nez - Os Transeuntes;1954
+1273;Nemesio Ant√∫nez - Os Transeuntes;1954
 1274;Omar Rayo;Tilodiran;1971
-1275;RenÈ Portocarrero;Catedral;1961
-1276;Roberto Sebasti·n Matta;ComposiÁ„o;unk
-1277;Rufino Tamayo;unk;unk
+1275;Ren√© Portocarrero;Catedral;1961
+1276;Roberto Sebasti√°n Matta;Composi√ß√£o;unk
+1277;Rufino Tamayo;unk;unk 
