@@ -889,7 +889,7 @@ if __name__ == '__main__':
 
 	jsonPaths = input('Enter json file names sep by \',\', or \'0\' for defaut: ')
 	if jsonPaths == '0':
-		jsonPathList = ['src/jsonFiles/41.json', 'src/jsonFiles/42.json', 'src/jsonFiles/43.json', 'src/jsonFiles/44.json']
+		jsonPathList = ['src/jsonFiles/48.json', 'src/jsonFiles/49.json', 'src/jsonFiles/50.json', 'src/jsonFiles/51.json']
 	else:
 		jsonPathList = ['src/jsonFiles/' + path.strip() for path in jsonPaths.split(',')]
 
